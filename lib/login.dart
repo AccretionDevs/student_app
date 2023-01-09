@@ -21,7 +21,6 @@ class _MyLoginState extends State<MyLogin> {
           margin:
               EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
           decoration: const BoxDecoration(
-            color: Colors.white,
             image: DecorationImage(
                 image: AssetImage('assets/images/logo.png'),
                 alignment: Alignment.topCenter,
