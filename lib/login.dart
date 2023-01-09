@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
-
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
 
@@ -19,7 +18,7 @@ class _MyLoginState extends State<MyLogin> {
       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('logo.png'),
+            image: AssetImage('assets/images/logo.png'),
             alignment: Alignment.topCenter,
             scale: 7),
       ),
