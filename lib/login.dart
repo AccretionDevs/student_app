@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -205,7 +204,6 @@ Future<http.Response> login(String re, String ps, bool rp) async {
       throw Exception("Invalid Username or Password");
     }
   } catch (error) {
-    log(error.toString());
     rethrow;
   }
 }
