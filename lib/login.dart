@@ -129,11 +129,13 @@ class _MyLoginState extends State<MyLogin> {
                                         try {
                                           await login(registrationNumber,
                                               password, rememberPassword);
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const HomePage()));
+                                          if (mounted) {
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const HomePage()));
+                                          }
                                         } catch (error) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
