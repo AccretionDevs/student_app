@@ -198,7 +198,20 @@ Future<http.Response> login(String re, String ps, bool rp) async {
         await prefs.setString('form_ps', ps);
       }
       await prefs.setBool('form_rp', rp);
+      await prefs.setString('token', responseMap["UserInfo"]["Token"]);
       await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
+      await prefs.setString('regno', responseMap["UserInfo"]["RegNo"]);
+      await prefs.setString('enroll', responseMap["UserInfo"]["EnrollmentNo"]);
+      await prefs.setString('uano', responseMap["UserInfo"]["UaNo"]);
+      await prefs.setString('hfid', responseMap["UserInfo"]["IdNo"]);
+      await prefs.setString('branch', responseMap["UserInfo"]["BranchName"]);
+      await prefs.setString('semester', responseMap["UserInfo"]["SemesterName"]);
+      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
+      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
+      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
+      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
+      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
+      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
       return response;
     } else {
       throw Exception("Invalid Username or Password");
