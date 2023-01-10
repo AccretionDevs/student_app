@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
+import 'package:http/http.dart' as http;
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -12,6 +12,7 @@ class _MyLoginState extends State<MyLogin> {
   String registrationNumber = "";
   String password = "";
   bool rememberPassword = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -114,17 +115,35 @@ class _MyLoginState extends State<MyLogin> {
                                                 BorderRadius.circular(10.0),
                                             side: const BorderSide(
                                                 color: Colors.grey)))),
-                                onPressed: () {
-                                  login(registrationNumber, password,
-                                      rememberPassword);
-                                },
-                                child: const Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
+                                onPressed: isLoading
+                                    ? null
+                                    : () async {
+                                        setState(() {
+                                          isLoading = true;
+                                        });
+                                        try {
+                                          await login(registrationNumber,
+                                              password, rememberPassword);
+                                        } catch (error) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content:
+                                                      Text(error.toString())));
+                                        } finally {
+                                          setState(() {
+                                            isLoading = false;
+                                          });
+                                        }
+                                      },
+                                child: isLoading
+                                    ? const CircularProgressIndicator()
+                                    : const Text(
+                                        'Login',
+                                        style: TextStyle(
+                                          fontSize: 20.0,
+                                          color: Colors.black,
+                                        ),
+                                      ),
                               )),
                         ),
                       ],
@@ -136,9 +155,18 @@ class _MyLoginState extends State<MyLogin> {
   }
 }
 
-int login(String re, String ps, bool rp) {
-  log('re: $re');
-  log('ps: $ps');
-  log('Rp :$rp');
-  return 1;
+Future<http.Response> login(String re, String ps, bool rp) async {
+  try {
+    final response = await http.post(
+      Uri.parse('URL'),
+      body: {'username': re, 'password': ps},
+    );
+    if (response.statusCode == 200) {
+      return response;
+    } else {
+      throw Exception("Invalid Username or Password");
+    }
+  } catch (error) {
+    rethrow;
+  }
 }
