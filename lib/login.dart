@@ -1,5 +1,10 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'home.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -124,6 +129,11 @@ class _MyLoginState extends State<MyLogin> {
                                         try {
                                           await login(registrationNumber,
                                               password, rememberPassword);
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const HomePage()));
                                         } catch (error) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
@@ -157,16 +167,43 @@ class _MyLoginState extends State<MyLogin> {
 
 Future<http.Response> login(String re, String ps, bool rp) async {
   try {
-    final response = await http.post(
-      Uri.parse('URL'),
-      body: {'username': re, 'password': ps},
-    );
-    if (response.statusCode == 200) {
+    if (re.isEmpty) {
+      throw Exception("Please Enter Registration Number");
+    }
+    if (ps.isEmpty) {
+      throw Exception("Please Enter Password");
+    }
+
+    Uri url = Uri.parse('https://android.nitsri.ac.in/api/v2/initial/auth');
+    Map<String, String> data = {"username": re, "password": ps};
+    String dataLen = Uri(queryParameters: data).query.length.toString();
+    Map<String, String> headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Length": dataLen,
+      "Host": "android.nitsri.ac.in",
+      "Connection": "Keep-Alive",
+      "Accept-Encoding": "gzip",
+      "User-Agent": "okhttp/5.0.0-alpha.2"
+    };
+
+    final response = await http.post(url, body: data, headers: headers);
+    int responseCode = response.statusCode;
+    Map<String, dynamic> responseMap = jsonDecode(response.body);
+
+    if (responseCode == 200) {
+      final prefs = await SharedPreferences.getInstance();
+      if (rp) {
+        await prefs.setString('form_re', re);
+        await prefs.setString('form_ps', ps);
+      }
+      await prefs.setBool('form_rp', rp);
+      await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
       return response;
     } else {
       throw Exception("Invalid Username or Password");
     }
   } catch (error) {
+    log(error.toString());
     rethrow;
   }
 }
