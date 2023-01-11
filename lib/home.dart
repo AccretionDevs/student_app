@@ -64,8 +64,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Text(
                       name!.toUpperCase(),
+                      textAlign: TextAlign.center,
                       style: const TextStyle(
-                        // color: Colors.grey,
                         fontFamily: 'Quicksand',
                         fontSize: 26,
                       ),
@@ -73,62 +73,65 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                    Card(
-                      // margin: EdgeInsets.symmetric(horizontal: 4, vertical: 40.0),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20, bottom: 20, left: 20, right: 180),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            const Text("Registration Number:",
-                                style: TextStyle(fontSize: 12.0)),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            Text(regno!,
-                                style: const TextStyle(fontSize: 18.0)),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02),
-                            const Text("Branch:",
-                                style: TextStyle(fontSize: 12.0)),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            Text(branch!, style: const TextStyle(fontSize: 18.0)),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02),
-                            const Text("Enrollment Number:",
-                                style: TextStyle(fontSize: 12.0)),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            Text(enroll!,
-                                style: const TextStyle(fontSize: 18.0)),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02),
-                            const Text("Semester:",
-                                style: TextStyle(fontSize: 12.0)),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            Text(semester!, style: const TextStyle(fontSize: 18.0)),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02),
-                            const Text("CGPA:",
-                                style: TextStyle(fontSize: 12.0)),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            const Text("NA", style: TextStyle(fontSize: 18.0)),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.02),
-                          ],
+                    Container(
+                      width: double.infinity,
+                      child: Card(
+                        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 4.0),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 20, bottom: 20, left: 20, right: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              const Text("Registration Number:",
+                                  style: TextStyle(fontSize: 12.0)),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                              Text(regno!,
+                                  style: const TextStyle(fontSize: 18.0)),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.02),
+                              const Text("Branch:",
+                                  style: TextStyle(fontSize: 12.0)),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                              Text(branch!, style: const TextStyle(fontSize: 18.0)),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.02),
+                              const Text("Enrollment Number:",
+                                  style: TextStyle(fontSize: 12.0)),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                              Text(enroll!,
+                                  style: const TextStyle(fontSize: 18.0)),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.02),
+                              const Text("Semester:",
+                                  style: TextStyle(fontSize: 12.0)),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                              Text(semester!, style: const TextStyle(fontSize: 18.0)),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.02),
+                              const Text("CGPA:",
+                                  style: TextStyle(fontSize: 12.0)),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.01),
+                              const Text("NA", style: TextStyle(fontSize: 18.0)),
+                              SizedBox(
+                                  height:
+                                  MediaQuery.of(context).size.height * 0.02),
+                            ],
+                          ),
                         ),
                       ),
                     ),
