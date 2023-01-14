@@ -138,8 +138,9 @@ class _MyLoginState extends State<MyLogin> {
                                         } catch (error) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
-                                                  content:
-                                                      Text(error.toString())));
+                                                  content: Text(error
+                                                      .toString()
+                                                      .substring(11))));
                                         } finally {
                                           setState(() {
                                             isLoading = false;
@@ -193,11 +194,10 @@ Future<http.Response> login(String re, String ps, bool rp) async {
 
     if (responseCode == 200) {
       final prefs = await SharedPreferences.getInstance();
-      if (rp) {
-        await prefs.setString('form_re', re);
-        await prefs.setString('form_ps', ps);
-      }
+      await prefs.setString('form_re', re);
+      await prefs.setString('form_ps', ps);
       await prefs.setBool('form_rp', rp);
+      await prefs.setBool('is_logged', true);
       await prefs.setString('token', responseMap["UserInfo"]["Token"]);
       await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
       await prefs.setString('regno', responseMap["UserInfo"]["RegNo"]);
@@ -205,7 +205,8 @@ Future<http.Response> login(String re, String ps, bool rp) async {
       await prefs.setString('uano', responseMap["UserInfo"]["UaNo"]);
       await prefs.setString('hfid', responseMap["UserInfo"]["IdNo"]);
       await prefs.setString('branch', responseMap["UserInfo"]["BranchName"]);
-      await prefs.setString('semester', responseMap["UserInfo"]["SemesterName"]);
+      await prefs.setString(
+          'semester', responseMap["UserInfo"]["SemesterName"]);
       // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
       // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
       // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);

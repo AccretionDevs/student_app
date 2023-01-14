@@ -73,10 +73,11 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: Card(
-                        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 4.0),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 4.0),
                         child: Padding(
                           padding: const EdgeInsets.only(
                               top: 20, bottom: 20, left: 20, right: 20),
@@ -86,50 +87,53 @@ class _HomePageState extends State<HomePage> {
                               const Text("Registration Number:",
                                   style: TextStyle(fontSize: 12.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.01),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
                               Text(regno!,
                                   style: const TextStyle(fontSize: 18.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                               const Text("Branch:",
                                   style: TextStyle(fontSize: 12.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                              Text(branch!, style: const TextStyle(fontSize: 18.0)),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(branch!,
+                                  style: const TextStyle(fontSize: 18.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                               const Text("Enrollment Number:",
                                   style: TextStyle(fontSize: 12.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.01),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
                               Text(enroll!,
                                   style: const TextStyle(fontSize: 18.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                               const Text("Semester:",
                                   style: TextStyle(fontSize: 12.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                              Text(semester!, style: const TextStyle(fontSize: 18.0)),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(semester!,
+                                  style: const TextStyle(fontSize: 18.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                               const Text("CGPA:",
                                   style: TextStyle(fontSize: 12.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                              const Text("NA", style: TextStyle(fontSize: 18.0)),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              const Text("NA",
+                                  style: TextStyle(fontSize: 18.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                             ],
                           ),
                         ),
