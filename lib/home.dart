@@ -20,15 +20,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: _selectedIndex == 0
-            ? const HomePageComponent()
-            : _selectedIndex == 1
-                ? const ResultComponent()
-                : Footer(selectedIndex: 2, onPressed: _onTap),
-        bottomNavigationBar:
-            Footer(selectedIndex: _selectedIndex, onPressed: _onTap),
-      ),
+      home: SafeArea(
+         child: Scaffold(
+          body: _selectedIndex == 0
+              ? const HomePageComponent()
+              : _selectedIndex == 1
+              ? const ResultComponent()
+              : Footer(selectedIndex: 2, onPressed: _onTap),
+          bottomNavigationBar:
+          Footer(selectedIndex: _selectedIndex, onPressed: _onTap),
+        ),
+     )
     );
   }
 
