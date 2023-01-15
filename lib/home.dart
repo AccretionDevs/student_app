@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:student_app/components/home_component.dart';
 import 'package:student_app/components/footer.dart';
 
-void main() {
-  runApp(const HomePage());
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
