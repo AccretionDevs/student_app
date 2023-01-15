@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:developer';
-import 'package:student_app/components/footer.dart';
+
 void main() {
   runApp(const HomePageComponent());
 }
@@ -14,13 +13,12 @@ class HomePageComponent extends StatefulWidget {
 }
 
 class _HomePageComponentState extends State<HomePageComponent> {
-  final int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return //MaterialApp(
-      // debugShowCheckedModeBanner: false,
-      // home: Scaffold(
-         FutureBuilder(
+        // debugShowCheckedModeBanner: false,
+        // home: Scaffold(
+        FutureBuilder(
             future: SharedPreferences.getInstance(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
@@ -53,7 +51,7 @@ class _HomePageComponentState extends State<HomePageComponent> {
                           const CircleAvatar(
                             radius: 60,
                             backgroundImage:
-                            AssetImage('assets/images/logo.png'),
+                                AssetImage('assets/images/logo.png'),
                             backgroundColor: Colors.transparent,
                           ),
                         ],
@@ -73,10 +71,11 @@ class _HomePageComponentState extends State<HomePageComponent> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: Card(
-                        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 4.0),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 4.0),
                         child: Padding(
                           padding: const EdgeInsets.only(
                               top: 20, bottom: 20, left: 20, right: 20),
@@ -86,50 +85,53 @@ class _HomePageComponentState extends State<HomePageComponent> {
                               const Text("Registration Number:",
                                   style: TextStyle(fontSize: 12.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.01),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
                               Text(regno!,
                                   style: const TextStyle(fontSize: 18.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                               const Text("Branch:",
                                   style: TextStyle(fontSize: 12.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                              Text(branch!, style: const TextStyle(fontSize: 18.0)),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(branch!,
+                                  style: const TextStyle(fontSize: 18.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                               const Text("Enrollment Number:",
                                   style: TextStyle(fontSize: 12.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.01),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
                               Text(enroll!,
                                   style: const TextStyle(fontSize: 18.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                               const Text("Semester:",
                                   style: TextStyle(fontSize: 12.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                              Text(semester!, style: const TextStyle(fontSize: 18.0)),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              Text(semester!,
+                                  style: const TextStyle(fontSize: 18.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                               const Text("CGPA:",
                                   style: TextStyle(fontSize: 12.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                              const Text("NA", style: TextStyle(fontSize: 18.0)),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.01),
+                              const Text("NA",
+                                  style: TextStyle(fontSize: 18.0)),
                               SizedBox(
-                                  height:
-                                  MediaQuery.of(context).size.height * 0.02),
+                                  height: MediaQuery.of(context).size.height *
+                                      0.02),
                             ],
                           ),
                         ),
@@ -139,8 +141,8 @@ class _HomePageComponentState extends State<HomePageComponent> {
                 ),
               );
             });
-        //
-      // ),
+    //
+    // ),
     // );
   }
 }

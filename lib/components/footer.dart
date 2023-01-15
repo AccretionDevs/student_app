@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+
 class Footer extends StatefulWidget {
   final int selectedIndex;
   final Function onPressed;
-  const Footer({super.key, required this.selectedIndex, required this.onPressed});
+  const Footer(
+      {super.key, required this.selectedIndex, required this.onPressed});
   @override
   State<Footer> createState() => _FooterState();
 }
 
 class _FooterState extends State<Footer> {
   int selectedIndex = 0;
-  Function onPressed = ()=> {};
+  Function onPressed = () => {};
   @override
   void initState() {
     super.initState();
     selectedIndex = widget.selectedIndex;
     onPressed = widget.onPressed ?? (int i) => {};
   }
+
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
@@ -40,11 +43,11 @@ class _FooterState extends State<Footer> {
         ],
         iconSize: 35,
         currentIndex: selectedIndex,
-        onTap:(int i) => {setState(() {
-          selectedIndex = i;
-        }),
-          onPressed(i)
-        }
-      );
+        onTap: (int i) => {
+              setState(() {
+                selectedIndex = i;
+              }),
+              onPressed(i)
+            });
   }
 }
