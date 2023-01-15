@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/components/home_component.dart';
 import 'package:student_app/components/footer.dart';
+import 'package:student_app/components/result_component.dart';
 
 void main() {
   runApp(const HomePage());
@@ -22,7 +23,9 @@ class _HomePageState extends State<HomePage> {
       home: Scaffold(
         body: _selectedIndex == 0
             ? const HomePageComponent()
-            : Footer(selectedIndex: 2, onPressed: _onTap),
+            : _selectedIndex == 1
+                ? const ResultComponent()
+                : Footer(selectedIndex: 2, onPressed: _onTap),
         bottomNavigationBar:
             Footer(selectedIndex: _selectedIndex, onPressed: _onTap),
       ),
