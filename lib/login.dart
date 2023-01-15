@@ -194,7 +194,7 @@ class _MyLoginState extends State<MyLogin> {
 
   Future<String> loadState() async {
     if (isLoading) {
-      await Future.delayed(const Duration(milliseconds: 500));
+      // await Future.delayed(const Duration(milliseconds: 500));
 
       final prefs = await SharedPreferences.getInstance();
       final formRe = prefs.getString('form_re') ?? "";
