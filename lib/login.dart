@@ -34,6 +34,8 @@ class _MyLoginState extends State<MyLogin> {
                   if (prefs.getString('form_ps') != null)
                     {password = prefs.getString('form_ps')!}
                 },
+              if (prefs.getBool('form_rp') != null)
+                {rememberPassword = prefs.getBool('form_rp')!},
             })
         .then((val) => {
               regnoController = TextEditingController(text: registrationNumber),
