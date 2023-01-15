@@ -1,7 +1,8 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 import 'home.dart';
 
@@ -13,211 +14,220 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
-  String registrationNumber = "";
-  String password = "";
-  bool rememberPassword = true;
-  bool isLoading = false;
-  TextEditingController regnoController = TextEditingController(text: "");
-  TextEditingController passController = TextEditingController(text: "");
+  late String registrationNumber;
+  late String password;
+  late bool rememberPassword;
+  late TextEditingController regnoController;
+  late TextEditingController passController;
 
-  @override
-  void initState() {
-    super.initState();
-
-    SharedPreferences.getInstance()
-        .then((prefs) => {
-              if (prefs.getString('form_re') != null)
-                {registrationNumber = prefs.getString('form_re')!},
-              if (prefs.getBool('form_rp') != null &&
-                  prefs.getBool('form_rp') != false)
-                {
-                  if (prefs.getString('form_ps') != null)
-                    {password = prefs.getString('form_ps')!}
-                },
-              if (prefs.getBool('form_rp') != null)
-                {rememberPassword = prefs.getBool('form_rp')!},
-            })
-        .then((val) => {
-              regnoController = TextEditingController(text: registrationNumber),
-              passController = TextEditingController(text: password),
-              regnoController.addListener(() {
-                setState(() {
-                  registrationNumber = regnoController.text;
-                });
-              }),
-              passController.addListener(() {
-                setState(() {
-                  password = passController.text;
-                });
-              })
-            });
-  }
+  bool isLoading = true;
+  bool isLogging = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: null,
-        body: Container(
-          margin:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1),
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/logo.png'),
-                alignment: Alignment.topCenter,
-                scale: 7),
-          ),
-          child: Scaffold(
-              backgroundColor: Colors.transparent,
-              body: Stack(children: [
-                SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.35,
-                        right: 35,
-                        left: 35),
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: regnoController,
-                          decoration: InputDecoration(
-                            fillColor: Colors.grey.shade100,
-                            filled: true,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            labelText: 'Registration Number',
-                            labelStyle: const TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'Quicksand',
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 30),
-                        TextField(
-                          controller: passController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            fillColor: Colors.grey.shade100,
-                            filled: true,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            labelText: 'Password',
-                            labelStyle: const TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'Quicksand',
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02,
-                        ),
-                        Row(children: [
-                          Checkbox(
-                            value: rememberPassword,
-                            onChanged: (bool? rememberPassword) {
-                              setState(() {
-                                this.rememberPassword =
-                                    rememberPassword ?? true;
-                              });
-                            },
-                          ),
-                          const Text('Remember Password')
-                        ]),
-                        Container(
-                          // width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(top: 15),
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: isLoading
-                                  ? const CircularProgressIndicator()
-                                  : ElevatedButton(
-                                      style: ButtonStyle(
-                                          padding: MaterialStateProperty.all(
-                                              const EdgeInsets.only(
-                                                  left: 60,
-                                                  right: 60,
-                                                  top: 25,
-                                                  bottom: 25)),
-                                          backgroundColor: MaterialStateProperty.all(
-                                              Colors.blue[400]),
-                                          shape: MaterialStateProperty.all<
-                                                  RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(
-                                                      10.0),
-                                                  side: const BorderSide(
-                                                      color: Colors.grey)))),
-                                      onPressed: isLoading
-                                          ? null
-                                          : () async {
-                                              setState(() {
-                                                isLoading = true;
-                                              });
-                                              try {
-                                                await login(registrationNumber,
-                                                    password, rememberPassword);
-                                                if (mounted) {
-                                                  Navigator.pushReplacement(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const HomePage()));
-                                                }
-                                              } catch (error) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(SnackBar(
-                                                        content: Text(error
-                                                            .toString()
-                                                            .substring(11))));
-                                              } finally {
-                                                setState(() {
-                                                  isLoading = false;
-                                                });
-                                              }
-                                            },
-                                      child: const Text(
-                                        'Login',
-                                        style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    )),
-                        ),
-                      ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: FutureBuilder(
+            future: loadState(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.hasError) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(snapshot.error.toString().substring(11))));
+              }
+
+              return Scaffold(
+                  appBar: null,
+                  body: Container(
+                    margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.1),
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/logo.png'),
+                          alignment: Alignment.topCenter,
+                          scale: 7),
                     ),
-                  ),
-                )
-              ])),
-        ));
+                    child: Scaffold(
+                        backgroundColor: Colors.transparent,
+                        body: Stack(children: [
+                          SingleChildScrollView(
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  top:
+                                  MediaQuery.of(context).size.height * 0.35,
+                                  right: 35,
+                                  left: 35),
+                              child: Column(
+                                children: [
+                                  TextField(
+                                    controller: regnoController,
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.grey.shade100,
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(10)),
+                                      labelText: 'Registration Number',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontFamily: 'Quicksand',
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 30),
+                                  TextField(
+                                    controller: passController,
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.grey.shade100,
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(10)),
+                                      labelText: 'Password',
+                                      labelStyle: const TextStyle(
+                                        color: Colors.grey,
+                                        fontFamily: 'Quicksand',
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.02,
+                                  ),
+                                  Row(children: [
+                                    Checkbox(
+                                      value: rememberPassword,
+                                      onChanged: (bool? rememberPassword) {
+                                        setState(() {
+                                          this.rememberPassword =
+                                              rememberPassword ?? true;
+                                        });
+                                      },
+                                    ),
+                                    const Text('Remember Password')
+                                  ]),
+                                  Container(
+                                    // width: MediaQuery.of(context).size.width,
+                                    margin: const EdgeInsets.only(top: 15),
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: isLogging
+                                            ? const CircularProgressIndicator()
+                                            : ElevatedButton(
+                                          style: ButtonStyle(
+                                              padding:
+                                              MaterialStateProperty.all(
+                                                  const EdgeInsets.only(
+                                                      left: 60,
+                                                      right: 60,
+                                                      top: 25,
+                                                      bottom: 25)),
+                                              backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.blue[400]),
+                                              shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                      side: const BorderSide(color: Colors.grey)))),
+                                          onPressed: isLogging
+                                              ? null
+                                              : () async {
+                                            setState(() {
+                                              isLogging = true;
+                                            });
+                                            try {
+                                              await doLogin(
+                                                  registrationNumber,
+                                                  password,
+                                                  rememberPassword);
+                                              if (mounted) {
+                                                Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder:
+                                                            (context) =>
+                                                        const HomePage()));
+                                              }
+                                            } catch (error) {
+                                              ScaffoldMessenger.of(
+                                                  context)
+                                                  .showSnackBar(SnackBar(
+                                                  content: Text(error
+                                                      .toString()
+                                                      .substring(
+                                                      11))));
+                                            } finally {
+                                              setState(() {
+                                                isLogging = false;
+                                              });
+                                            }
+                                          },
+                                          child: const Text(
+                                            'Login',
+                                            style: TextStyle(
+                                              fontSize: 20.0,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ])),
+                  ));
+            }),
+      ),
+    );
   }
 
-  Future<void> fetchDetails() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      // registrationNumber = prefs.getString('form_re')!;
-      registrationNumber = "R";
-    });
-    if (prefs.getBool('form_rp')!) {
-      setState(() {
-        password = prefs.getString('form_ps')!;
+  Future<String> loadState() async {
+    if (isLoading) {
+      await Future.delayed(const Duration(milliseconds: 500));
+
+      final prefs = await SharedPreferences.getInstance();
+      final formRe = prefs.getString('form_re') ?? "";
+      final formPs = prefs.getString('form_ps') ?? "";
+      final formRp = prefs.getBool('form_rp') ?? true;
+
+      registrationNumber = formRe;
+      password = formRp ? formPs : "";
+      rememberPassword = formRp;
+
+      regnoController = TextEditingController(text: registrationNumber);
+      regnoController.addListener(() {
+        setState(() {
+          registrationNumber = regnoController.text;
+        });
       });
+
+      passController = TextEditingController(text: password);
+      passController.addListener(() {
+        setState(() {
+          password = passController.text;
+        });
+      });
+
+      isLoading = false;
     }
+
+    return "Success";
   }
-}
 
-Future<http.Response> login(String re, String ps, bool rp) async {
-  try {
-    if (re.isEmpty) {
-      throw Exception("Please Enter Registration Number");
-    }
-    if (ps.isEmpty) {
-      throw Exception("Please Enter Password");
-    }
-
+  Future<void> doLogin(String formRe, String formPs, bool formRp) async {
     Uri url = Uri.parse('https://android.nitsri.ac.in/api/v2/initial/auth');
-    Map<String, String> data = {"username": re, "password": ps};
+    Map<String, String> data = {"username": formRe, "password": formPs};
     String dataLen = Uri(queryParameters: data).query.length.toString();
     Map<String, String> headers = {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -234,10 +244,12 @@ Future<http.Response> login(String re, String ps, bool rp) async {
 
     if (responseCode == 200) {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('form_re', re);
-      await prefs.setString('form_ps', ps);
-      await prefs.setBool('form_rp', rp);
+
+      await prefs.setString('form_re', formRe);
+      await prefs.setString('form_ps', formPs);
+      await prefs.setBool('form_rp', formRp);
       await prefs.setBool('is_logged', true);
+
       await prefs.setString('token', responseMap["UserInfo"]["Token"]);
       await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
       await prefs.setString('regno', responseMap["UserInfo"]["RegNo"]);
@@ -247,17 +259,8 @@ Future<http.Response> login(String re, String ps, bool rp) async {
       await prefs.setString('branch', responseMap["UserInfo"]["BranchName"]);
       await prefs.setString(
           'semester', responseMap["UserInfo"]["SemesterName"]);
-      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
-      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
-      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
-      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
-      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
-      // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
-      return response;
     } else {
-      throw Exception("Invalid Username or Password");
+      throw Exception("Invalid Registration Number or Password!");
     }
-  } catch (error) {
-    rethrow;
   }
 }
