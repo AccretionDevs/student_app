@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +35,8 @@ class _MyLoginState extends State<MyLogin> {
                   if (prefs.getString('form_ps') != null)
                     {password = prefs.getString('form_ps')!}
                 },
+              if (prefs.getBool('form_rp') != null)
+                {rememberPassword = prefs.getBool('form_rp')!},
             })
         .then((val) => {
               regnoController = TextEditingController(text: registrationNumber),
@@ -47,7 +50,8 @@ class _MyLoginState extends State<MyLogin> {
                 setState(() {
                   password = passController.text;
                 });
-              })
+              }),
+              log("done")
             });
   }
 

@@ -38,6 +38,7 @@ class SplashScreenState extends State<SplashScreen> {
       if (mounted) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const MyLogin()));
+        return;
       }
     }
 
@@ -95,15 +96,13 @@ class SplashScreenState extends State<SplashScreen> {
         throw Exception("Invalid Username or Password");
       }
     } catch (error) {
-      rethrow;
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error.toString().substring(11))));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const MyLogin()));
+      }
     }
-
-    // await Future.delayed(const Duration(seconds: 2));
-    // // Perform network call or any other async task here
-    // if (mounted) {
-    //   Navigator.pushReplacement(
-    //       context, MaterialPageRoute(builder: (context) => const MyLogin()));
-    // }
   }
 
   @override
