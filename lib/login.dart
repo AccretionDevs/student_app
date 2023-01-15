@@ -17,6 +17,39 @@ class _MyLoginState extends State<MyLogin> {
   String password = "";
   bool rememberPassword = true;
   bool isLoading = false;
+  TextEditingController regnoController = TextEditingController(text: "");
+  TextEditingController passController = TextEditingController(text: "");
+
+  @override
+  void initState() {
+    super.initState();
+
+    SharedPreferences.getInstance()
+        .then((prefs) => {
+              if (prefs.getString('form_re') != null)
+                {registrationNumber = prefs.getString('form_re')!},
+              if (prefs.getBool('form_rp') != null &&
+                  prefs.getBool('form_rp') != false)
+                {
+                  if (prefs.getString('form_ps') != null)
+                    {password = prefs.getString('form_ps')!}
+                },
+            })
+        .then((val) => {
+              regnoController = TextEditingController(text: registrationNumber),
+              passController = TextEditingController(text: password),
+              regnoController.addListener(() {
+                setState(() {
+                  registrationNumber = regnoController.text;
+                });
+              }),
+              passController.addListener(() {
+                setState(() {
+                  password = passController.text;
+                });
+              })
+            });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +76,7 @@ class _MyLoginState extends State<MyLogin> {
                     child: Column(
                       children: [
                         TextField(
-                          onChanged: (value) {
-                            setState(() {
-                              registrationNumber = value;
-                            });
-                          },
+                          controller: regnoController,
                           decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
                             filled: true,
@@ -63,11 +92,7 @@ class _MyLoginState extends State<MyLogin> {
                         ),
                         const SizedBox(height: 30),
                         TextField(
-                          onChanged: (value) {
-                            setState(() {
-                              password = value;
-                            });
-                          },
+                          controller: passController,
                           obscureText: true,
                           decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
@@ -102,60 +127,61 @@ class _MyLoginState extends State<MyLogin> {
                           margin: const EdgeInsets.only(top: 15),
                           child: Align(
                               alignment: Alignment.center,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                    padding: MaterialStateProperty.all(
-                                        const EdgeInsets.only(
-                                            left: 60,
-                                            right: 60,
-                                            top: 25,
-                                            bottom: 25)),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.blue[400]),
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            side: const BorderSide(
-                                                color: Colors.grey)))),
-                                onPressed: isLoading
-                                    ? null
-                                    : () async {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        try {
-                                          await login(registrationNumber,
-                                              password, rememberPassword);
-                                          if (mounted) {
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const HomePage()));
-                                          }
-                                        } catch (error) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                                  content:
-                                                      Text(error.toString())));
-                                        } finally {
-                                          setState(() {
-                                            isLoading = false;
-                                          });
-                                        }
-                                      },
-                                child: isLoading
-                                    ? const CircularProgressIndicator()
-                                    : const Text(
+                              child: isLoading
+                                  ? const CircularProgressIndicator()
+                                  : ElevatedButton(
+                                      style: ButtonStyle(
+                                          padding: MaterialStateProperty.all(
+                                              const EdgeInsets.only(
+                                                  left: 60,
+                                                  right: 60,
+                                                  top: 25,
+                                                  bottom: 25)),
+                                          backgroundColor: MaterialStateProperty.all(
+                                              Colors.blue[400]),
+                                          shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(
+                                                      10.0),
+                                                  side: const BorderSide(
+                                                      color: Colors.grey)))),
+                                      onPressed: isLoading
+                                          ? null
+                                          : () async {
+                                              setState(() {
+                                                isLoading = true;
+                                              });
+                                              try {
+                                                await login(registrationNumber,
+                                                    password, rememberPassword);
+                                                if (mounted) {
+                                                  Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const HomePage()));
+                                                }
+                                              } catch (error) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                        content: Text(error
+                                                            .toString()
+                                                            .substring(11))));
+                                              } finally {
+                                                setState(() {
+                                                  isLoading = false;
+                                                });
+                                              }
+                                            },
+                                      child: const Text(
                                         'Login',
                                         style: TextStyle(
                                           fontSize: 20.0,
                                           color: Colors.black,
                                         ),
                                       ),
-                              )),
+                                    )),
                         ),
                       ],
                     ),
@@ -163,6 +189,19 @@ class _MyLoginState extends State<MyLogin> {
                 )
               ])),
         ));
+  }
+
+  Future<void> fetchDetails() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      // registrationNumber = prefs.getString('form_re')!;
+      registrationNumber = "R";
+    });
+    if (prefs.getBool('form_rp')!) {
+      setState(() {
+        password = prefs.getString('form_ps')!;
+      });
+    }
   }
 }
 
@@ -193,11 +232,10 @@ Future<http.Response> login(String re, String ps, bool rp) async {
 
     if (responseCode == 200) {
       final prefs = await SharedPreferences.getInstance();
-      if (rp) {
-        await prefs.setString('form_re', re);
-        await prefs.setString('form_ps', ps);
-      }
+      await prefs.setString('form_re', re);
+      await prefs.setString('form_ps', ps);
       await prefs.setBool('form_rp', rp);
+      await prefs.setBool('is_logged', true);
       await prefs.setString('token', responseMap["UserInfo"]["Token"]);
       await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
       await prefs.setString('regno', responseMap["UserInfo"]["RegNo"]);
@@ -205,7 +243,8 @@ Future<http.Response> login(String re, String ps, bool rp) async {
       await prefs.setString('uano', responseMap["UserInfo"]["UaNo"]);
       await prefs.setString('hfid', responseMap["UserInfo"]["IdNo"]);
       await prefs.setString('branch', responseMap["UserInfo"]["BranchName"]);
-      await prefs.setString('semester', responseMap["UserInfo"]["SemesterName"]);
+      await prefs.setString(
+          'semester', responseMap["UserInfo"]["SemesterName"]);
       // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
       // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
       // await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
