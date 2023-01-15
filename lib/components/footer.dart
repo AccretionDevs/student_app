@@ -16,7 +16,7 @@ class _FooterState extends State<Footer> {
   void initState() {
     super.initState();
     selectedIndex = widget.selectedIndex;
-    onPressed = widget.onPressed ?? (int i) => {};
+    onPressed = widget.onPressed;
   }
 
   @override
