@@ -130,6 +130,16 @@ class _HomePageComponentState extends State<HomePageComponent> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02),
+                            ElevatedButton(
+                                onPressed: () => {
+                                      prefs?.setBool('is_logged', false),
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const SplashScreen()))
+                                    },
+                                child: const Text("Logout"))
                           ],
                         ),
                       ),
