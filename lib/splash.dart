@@ -25,9 +25,9 @@ class SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(milliseconds: 500));
 
     final prefs = await SharedPreferences.getInstance();
-    final isLogged = prefs?.getBool('is_logged');
-    final formRe = prefs?.getString('form_re');
-    final formPs = prefs?.getString('form_ps');
+    final isLogged = prefs.getBool('is_logged');
+    final formRe = prefs.getString('form_re');
+    final formPs = prefs.getString('form_ps');
 
     if (isLogged == null ||
         isLogged == false ||

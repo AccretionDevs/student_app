@@ -17,6 +17,39 @@ class _MyLoginState extends State<MyLogin> {
   String password = "";
   bool rememberPassword = true;
   bool isLoading = false;
+  TextEditingController regnoController = TextEditingController(text: "");
+  TextEditingController passController = TextEditingController(text: "");
+
+  @override
+  void initState() {
+    super.initState();
+
+    SharedPreferences.getInstance()
+        .then((prefs) => {
+              if (prefs.getString('form_re') != null)
+                {registrationNumber = prefs.getString('form_re')!},
+              if (prefs.getBool('form_rp') != null &&
+                  prefs.getBool('form_rp') != false)
+                {
+                  if (prefs.getString('form_ps') != null)
+                    {password = prefs.getString('form_ps')!}
+                },
+            })
+        .then((val) => {
+              regnoController = TextEditingController(text: registrationNumber),
+              passController = TextEditingController(text: password),
+              regnoController.addListener(() {
+                setState(() {
+                  registrationNumber = regnoController.text;
+                });
+              }),
+              passController.addListener(() {
+                setState(() {
+                  password = passController.text;
+                });
+              })
+            });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +76,7 @@ class _MyLoginState extends State<MyLogin> {
                     child: Column(
                       children: [
                         TextField(
-                          onChanged: (value) {
-                            setState(() {
-                              registrationNumber = value;
-                            });
-                          },
+                          controller: regnoController,
                           decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
                             filled: true,
@@ -63,11 +92,7 @@ class _MyLoginState extends State<MyLogin> {
                         ),
                         const SizedBox(height: 30),
                         TextField(
-                          onChanged: (value) {
-                            setState(() {
-                              password = value;
-                            });
-                          },
+                          controller: passController,
                           obscureText: true,
                           decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
@@ -164,6 +189,19 @@ class _MyLoginState extends State<MyLogin> {
                 )
               ])),
         ));
+  }
+
+  Future<void> fetchDetails() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      // registrationNumber = prefs.getString('form_re')!;
+      registrationNumber = "R";
+    });
+    if (prefs.getBool('form_rp')!) {
+      setState(() {
+        password = prefs.getString('form_ps')!;
+      });
+    }
   }
 }
 
