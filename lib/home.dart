@@ -3,9 +3,6 @@ import 'package:student_app/components/home_component.dart';
 import 'package:student_app/components/footer.dart';
 import 'package:student_app/components/result_component.dart';
 
-void main() {
-  runApp(const HomePage());
-}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
