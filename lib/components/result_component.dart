@@ -11,13 +11,12 @@ class ResultComponent extends StatefulWidget {
 
 class _ResultComponentState extends State<ResultComponent> {
   bool showResult = false;
-  int index = -1;
-  // Map<String, Function> myMap = {"callback": () => pressedSem()};
-  List<Map<String, dynamic>> m3 = [
+  int sem = -1;
+  List<Map<String, dynamic>> res = [
     {
       "title": "Autumn 2022",
       "items": [
-        ["Semester", "3"],
+        ["Semester", "1"],
         ["CGPA", "8.92"],
         ["SGPA", "3"],
         ["CGPA", "8.92"]
@@ -26,41 +25,94 @@ class _ResultComponentState extends State<ResultComponent> {
     },
     {
       "items": [
-        ["Semester", "3"],
+        ["Semester", "2"],
         ["CGPA", "8.92"],
         ["SGPA", "3"],
         ["CGPA", "8.92"]
-      ]
-    }
-  ];
-  List<Map<String, dynamic>> m4 = [
-    {
-      "title": "database management systems",
-      "items": [
-        ["Semester", "3"],
-        ["Grade", "A"],
-        ["Credits", "3"],
-        ["Internal", "20"]
       ],
-      // "callback": true
-    },
-    {
-      "title": "Operating Systems",
-      "items": [
-        ["Semester", "3"],
-        ["Grade", "B+"],
-        ["Credits", "4"],
-        ["Internal", "15"]
-      ]
+      "callback": true
     }
   ];
+  List<List<Map<String, dynamic>>> inter = [
+    [
+      {
+        "title": "database management systems",
+        "items": [
+          ["Semester", "1"],
+          ["Grade", "A"],
+          ["Credits", "3"],
+          ["Internal", "20"]
+        ],
+        // "callback": true
+      },
+      {
+        "title": "Operating Systems",
+        "items": [
+          ["Semester", "1"],
+          ["Grade", "B+"],
+          ["Credits", "4"],
+          ["Internal", "15"]
+        ]
+      }
+    ],
+    [
+      {
+        "title": "database management systems",
+        "items": [
+          ["Semester", "2"],
+          ["Grade", "A"],
+          ["Credits", "3"],
+          ["Internal", "20"]
+        ],
+        // "callback": true
+      },
+      {
+        "title": "Operating Systems",
+        "items": [
+          ["Semester", "2"],
+          ["Grade", "B+"],
+          ["Credits", "4"],
+          ["Internal", "15"]
+        ]
+      }
+    ],
+    [
+      {
+        "title": "database management systems",
+        "items": [
+          ["Semester", "3"],
+          ["Grade", "A"],
+          ["Credits", "3"],
+          ["Internal", "20"]
+        ],
+        // "callback": true
+      },
+      {
+        "title": "Operating Systems",
+        "items": [
+          ["Semester", "3"],
+          ["Grade", "B+"],
+          ["Credits", "4"],
+          ["Internal", "15"]
+        ]
+      }
+    ],
+  ];
+
   @override
   Widget build(BuildContext context) {
     return (SingleChildScrollView(
-      child: Column(
+
+      child:  showResult ?  Container(
+          child: Column(
         children: <Widget>[
-          for(int item = 0; item < m3.length; item++)
-              ModularResultCard(params: m3[item], parentOnPressed: () {pressedSem(item);})
+          for(int itemx = 0; itemx < inter[sem].length; itemx++)
+            ModularResultCard(params: inter[sem][itemx])
+        ],
+      ))  : Column(
+        children: [
+          for(int item = 0; item < res.length; item++)
+            ModularResultCard(params: res[item], parentOnPressed: () {pressedSem(item);})
         ],
       ),
     ));
@@ -69,9 +121,7 @@ class _ResultComponentState extends State<ResultComponent> {
     log('Pressed inside result component: $ind');
     setState(() {
       showResult=true;
-      index = ind;
+      sem = ind;
     });
-    // log('$ind');
-    // log(sem);
   }
 }

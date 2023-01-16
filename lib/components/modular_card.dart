@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
-
 class ModularResultCard extends StatefulWidget {
   final Map<String, dynamic> params;
-  // final Function onPressed;
-  final Function parentOnPressed;
+  final Function? parentOnPressed;
   const ModularResultCard({
     super.key,
     required this.params,
-    required this.parentOnPressed,
-    // required this.onPressed,
+    this.parentOnPressed,
   });
   @override
   State<ModularResultCard> createState() => _ModularResultCardState();
@@ -19,7 +15,7 @@ class _ModularResultCardState extends State<ModularResultCard> {
   bool hasTitle = false;
   bool hasCallback = false;
   Map<String, dynamic> params = {};
-  Function parentOnPressed = () => {};
+  Function? parentOnPressed = () => {};
   @override
   void initState() {
     super.initState();
@@ -85,6 +81,9 @@ class _ModularResultCardState extends State<ModularResultCard> {
   }
 
   void onPressed() {
-    parentOnPressed();
+    print("Pressed");
+    if(hasCallback){
+      parentOnPressed!();
+    }
   }
 }
