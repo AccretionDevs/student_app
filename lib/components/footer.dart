@@ -37,8 +37,8 @@ class _FooterState extends State<Footer> {
             label: 'Info',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: Icon(Icons.receipt),
+            label: 'FeesPaid',
           ),
         ],
         iconSize: 35,

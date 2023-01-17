@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/components/result_card.dart';
+import 'package:student_app/components/modular_card.dart';
 import 'dart:developer';
 
 class ResultComponent extends StatefulWidget {
@@ -10,52 +10,118 @@ class ResultComponent extends StatefulWidget {
 }
 
 class _ResultComponentState extends State<ResultComponent> {
-  String session = 'AUTUMN 2022';
-  String semester = '5';
-  String sgpa = '8.923';
-  String cgpa = '8.635';
+  bool showResult = false;
+  int sem = -1;
+  List<Map<String, dynamic>> res = [
+    {
+      "title": "Autumn 2022",
+      "items": [
+        ["Semester", "1"],
+        ["CGPA", "8.92"],
+        ["SGPA", "3"],
+        ["CGPA", "8.92"]
+      ],
+      "callback": true
+    },
+    {
+      "items": [
+        ["Semester", "2"],
+        ["CGPA", "8.92"],
+        ["SGPA", "3"],
+        ["CGPA", "8.92"]
+      ],
+      "callback": true
+    }
+  ];
+  List<List<Map<String, dynamic>>> inter = [
+    [
+      {
+        "title": "database management systems",
+        "items": [
+          ["Semester", "1"],
+          ["Grade", "A"],
+          ["Credits", "3"],
+          ["Internal", "20"]
+        ],
+        // "callback": true
+      },
+      {
+        "title": "Operating Systems",
+        "items": [
+          ["Semester", "1"],
+          ["Grade", "B+"],
+          ["Credits", "4"],
+          ["Internal", "15"]
+        ]
+      }
+    ],
+    [
+      {
+        "title": "database management systems",
+        "items": [
+          ["Semester", "2"],
+          ["Grade", "A"],
+          ["Credits", "3"],
+          ["Internal", "20"]
+        ],
+        // "callback": true
+      },
+      {
+        "title": "Operating Systems",
+        "items": [
+          ["Semester", "2"],
+          ["Grade", "B+"],
+          ["Credits", "4"],
+          ["Internal", "15"]
+        ]
+      }
+    ],
+    [
+      {
+        "title": "database management systems",
+        "items": [
+          ["Semester", "3"],
+          ["Grade", "A"],
+          ["Credits", "3"],
+          ["Internal", "20"]
+        ],
+        // "callback": true
+      },
+      {
+        "title": "Operating Systems",
+        "items": [
+          ["Semester", "3"],
+          ["Grade", "B+"],
+          ["Credits", "4"],
+          ["Internal", "15"]
+        ]
+      }
+    ],
+  ];
+
   @override
   Widget build(BuildContext context) {
     return (SingleChildScrollView(
-      child: Column(
+
+      child:  showResult ?  Container(
+          child: Column(
         children: <Widget>[
-          ResultCard(
-              session: session,
-              semester: semester,
-              sgpa: sgpa,
-              cgpa: cgpa,
-              pressedSem: pressedSem),
-          ResultCard(
-              session: session,
-              semester: semester,
-              sgpa: sgpa,
-              cgpa: cgpa,
-              pressedSem: pressedSem),
-          ResultCard(
-              session: session,
-              semester: semester,
-              sgpa: sgpa,
-              cgpa: cgpa,
-              pressedSem: pressedSem),
-          ResultCard(
-              session: session,
-              semester: semester,
-              sgpa: sgpa,
-              cgpa: cgpa,
-              pressedSem: pressedSem),
-          ResultCard(
-              session: session,
-              semester: semester,
-              sgpa: sgpa,
-              cgpa: cgpa,
-              pressedSem: pressedSem),
+          for(int itemx = 0; itemx < inter[sem].length; itemx++)
+            ModularResultCard(params: inter[sem][itemx])
+        ],
+      ))  : Column(
+        children: [
+          for(int item = 0; item < res.length; item++)
+            ModularResultCard(params: res[item], parentOnPressed: () {pressedSem(item);})
         ],
       ),
     ));
   }
-
-  void pressedSem(String sem) {
-    log('Pressed inside result component');
-    log(sem);
+  void pressedSem(int ind) {
+    log('Pressed inside result component: $ind');
+    setState(() {
+      showResult=true;
+      sem = ind;
+    });
   }
 }
