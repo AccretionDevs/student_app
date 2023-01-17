@@ -17,47 +17,6 @@ class _HomePageState extends State<HomePage> {
         debugShowCheckedModeBanner: false,
         home: SafeArea(
           child: Scaffold(
-            // appBar: AppBar(
-            //   actionsIconTheme: IconThemeData(color: Colors.white, size: 36),
-            //   actions: [
-            //     IconButton(
-            //         icon: Icon(Icons.more_vert),
-            //         onPressed: () {
-            //           showModalBottomSheet(
-            //               context: context,
-            //               builder: (BuildContext context) {
-            //                 return Container(
-            //                   color: Colors.white,
-            //                   child: Column(
-            //                     children: <Widget>[
-            //                       ListTile(
-            //                         leading: Icon(Icons.settings),
-            //                         title: Text('Settings'),
-            //                         onTap: () {
-            //                           //navigate to settings screen
-            //                         },
-            //                       ),
-            //                       ListTile(
-            //                         leading: Icon(Icons.info),
-            //                         title: Text('About'),
-            //                         onTap: () {
-            //                           //navigate to about screen
-            //                         },
-            //                       ),
-            //                       ListTile(
-            //                         leading: Icon(Icons.exit_to_app),
-            //                         title: Text('Logout'),
-            //                         onTap: () {
-            //                           //logout code
-            //                         },
-            //                       ),
-            //                     ],
-            //                   ),
-            //                 );
-            //               });
-            //         }),
-            //   ],
-            // ),
             appBar: AppBar(
               title: Text('Homepage'),
               actions: <Widget>[
@@ -66,17 +25,17 @@ class _HomePageState extends State<HomePage> {
                   itemBuilder: (BuildContext context) {
                     return <PopupMenuEntry<String>>[
                       PopupMenuItem<String>(
-                        value: 'Logout',
-                        child: ListTile(
-                          leading: Icon(Icons.exit_to_app),
-                          title: Text("Logout"),
-                        ),
-                      ),
-                      PopupMenuItem<String>(
                         value: 'Settings',
                         child: ListTile(
                           leading: Icon(Icons.settings),
                           title: Text("Settings"),
+                        ),
+                      ),
+                      PopupMenuItem<String>(
+                        value: 'Logout',
+                        child: ListTile(
+                          leading: Icon(Icons.exit_to_app),
+                          title: Text("Logout"),
                         ),
                       ),
                     ];
