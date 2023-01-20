@@ -58,7 +58,7 @@ class _MyLoginState extends State<MyLogin> {
                             child: Container(
                               padding: EdgeInsets.only(
                                   top:
-                                  MediaQuery.of(context).size.height * 0.35,
+                                      MediaQuery.of(context).size.height * 0.35,
                                   right: 35,
                                   left: 35),
                               child: Column(
@@ -70,7 +70,7 @@ class _MyLoginState extends State<MyLogin> {
                                       filled: true,
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                          BorderRadius.circular(10)),
+                                              BorderRadius.circular(10)),
                                       labelText: 'Registration Number',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
@@ -88,7 +88,7 @@ class _MyLoginState extends State<MyLogin> {
                                       filled: true,
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                          BorderRadius.circular(10)),
+                                              BorderRadius.circular(10)),
                                       labelText: 'Password',
                                       labelStyle: const TextStyle(
                                         color: Colors.grey,
@@ -121,65 +121,67 @@ class _MyLoginState extends State<MyLogin> {
                                         child: isLogging
                                             ? const CircularProgressIndicator()
                                             : ElevatedButton(
-                                          style: ButtonStyle(
-                                              padding:
-                                              MaterialStateProperty.all(
-                                                  const EdgeInsets.only(
-                                                      left: 60,
-                                                      right: 60,
-                                                      top: 25,
-                                                      bottom: 25)),
-                                              backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.blue[400]),
-                                              shape: MaterialStateProperty.all<
-                                                  RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                      side: const BorderSide(color: Colors.grey)))),
-                                          onPressed: isLogging
-                                              ? null
-                                              : () async {
-                                            setState(() {
-                                              isLogging = true;
-                                            });
-                                            try {
-                                              await doLogin(
-                                                  registrationNumber,
-                                                  password,
-                                                  rememberPassword);
-                                              if (mounted) {
-                                                Navigator.pushReplacement(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder:
-                                                            (context) =>
-                                                        const HomePage()));
-                                              }
-                                            } catch (error) {
-                                              ScaffoldMessenger.of(
-                                                  context)
-                                                  .showSnackBar(SnackBar(
-                                                  content: Text(error
-                                                      .toString()
-                                                      .substring(
-                                                      11))));
-                                            } finally {
-                                              setState(() {
-                                                isLogging = false;
-                                              });
-                                            }
-                                          },
-                                          child: const Text(
-                                            'Login',
-                                            style: TextStyle(
-                                              fontSize: 20.0,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        )),
+                                                style: ButtonStyle(
+                                                    padding:
+                                                        MaterialStateProperty.all(
+                                                            const EdgeInsets.only(
+                                                                left: 60,
+                                                                right: 60,
+                                                                top: 25,
+                                                                bottom: 25)),
+                                                    backgroundColor:
+                                                        MaterialStateProperty.all(
+                                                            Colors.blue[400]),
+                                                    shape: MaterialStateProperty.all<
+                                                            RoundedRectangleBorder>(
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    10.0),
+                                                            side: const BorderSide(color: Colors.grey)))),
+                                                onPressed: isLogging
+                                                    ? null
+                                                    : () async {
+                                                        setState(() {
+                                                          isLogging = true;
+                                                        });
+                                                        try {
+                                                          await doLogin(
+                                                              registrationNumber,
+                                                              password,
+                                                              rememberPassword);
+                                                          if (mounted) {
+                                                            Navigator
+                                                                .pushReplacement(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder: (context) =>
+                                                                            const HomePage(
+                                                                              selectedIndex: 0,
+                                                                            )));
+                                                          }
+                                                        } catch (error) {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(SnackBar(
+                                                                  content: Text(error
+                                                                      .toString()
+                                                                      .substring(
+                                                                          11))));
+                                                        } finally {
+                                                          setState(() {
+                                                            isLogging = false;
+                                                          });
+                                                        }
+                                                      },
+                                                child: const Text(
+                                                  'Login',
+                                                  style: TextStyle(
+                                                    fontSize: 20.0,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              )),
                                   ),
                                 ],
                               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:student_app/components/Upper.dart';
 import '../splash.dart';
 
 void main() {
@@ -41,6 +41,10 @@ class _HomePageComponentState extends State<HomePageComponent> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
+                  Upper(
+                    title: "Home",
+                    back: false,
+                  ),
                   SizedBox(
                     width: double.infinity,
                     child: Column(
