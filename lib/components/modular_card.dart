@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class ModularResultCard extends StatefulWidget {
   final Map<String, dynamic> params;
   final Function? parentOnPressed;
@@ -82,7 +83,7 @@ class _ModularResultCardState extends State<ModularResultCard> {
 
   void onPressed() {
     print("Pressed");
-    if(hasCallback){
+    if (hasCallback) {
       parentOnPressed!();
     }
   }

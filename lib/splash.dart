@@ -61,7 +61,11 @@ class SplashScreenState extends State<SplashScreen> {
       await doLogin(formRe, formPs, formRp);
       if (mounted) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => const HomePage(
+                      selectedIndex: 0,
+                    )));
       }
     } catch (error) {
       if (mounted) {
