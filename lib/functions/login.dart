@@ -31,6 +31,7 @@ Future<void> doLogin(String formRe, String formPs, bool formRp) async {
     await prefs.setString('token', responseMap["UserInfo"]["Token"]);
     await prefs.setString('regno', responseMap["UserInfo"]["RegNo"]);
     await prefs.setString('enroll', responseMap["UserInfo"]["EnrollmentNo"]);
+    await prefs.setString('uatype', responseMap["UserInfo"]["UaType"]);
     await prefs.setString('uano', responseMap["UserInfo"]["UaNo"]);
     await prefs.setString('hfid', responseMap["UserInfo"]["IdNo"]);
 

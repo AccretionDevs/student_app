@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:student_app/home.dart';
 import 'package:student_app/splash.dart';
