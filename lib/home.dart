@@ -7,7 +7,7 @@ import 'package:student_app/components/fees_paid.dart';
 
 class HomePage extends StatefulWidget {
   final int selectedIndex;
-  const HomePage({Key? key, required this.selectedIndex}) : super(key: key);
+  const HomePage({Key? key, this.selectedIndex = 0}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
