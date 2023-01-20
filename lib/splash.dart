@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'functions/login.dart';
 import 'login.dart';
 import 'home.dart';
@@ -64,8 +63,7 @@ class SplashScreenState extends State<SplashScreen> {
       }
     } catch (error) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(error.toString().substring(11))));
+        await prefs.setBool('is_logged', false);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const MyLogin()));
       }

@@ -17,7 +17,8 @@ Future<void> doLogin(String formRe, String formPs, bool formRp) async {
 
   final response = await http.post(url, body: data, headers: headers);
   int responseCode = response.statusCode;
-  Map<String, dynamic> responseMap = jsonDecode(response.body);
+  String responseJson = response.body;
+  Map<String, dynamic> responseMap = jsonDecode(responseJson);
 
   if (responseCode == 200) {
     final prefs = await SharedPreferences.getInstance();
@@ -28,13 +29,12 @@ Future<void> doLogin(String formRe, String formPs, bool formRp) async {
     await prefs.setBool('is_logged', true);
 
     await prefs.setString('token', responseMap["UserInfo"]["Token"]);
-    await prefs.setString('name', responseMap["UserInfo"]["UserName"]);
     await prefs.setString('regno', responseMap["UserInfo"]["RegNo"]);
     await prefs.setString('enroll', responseMap["UserInfo"]["EnrollmentNo"]);
     await prefs.setString('uano', responseMap["UserInfo"]["UaNo"]);
     await prefs.setString('hfid', responseMap["UserInfo"]["IdNo"]);
-    await prefs.setString('branch', responseMap["UserInfo"]["BranchName"]);
-    await prefs.setString('semester', responseMap["UserInfo"]["SemesterName"]);
+
+    await prefs.setString('login_info', responseJson);
   } else {
     throw Exception("Invalid Registration Number or Password!");
   }

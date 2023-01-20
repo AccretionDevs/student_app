@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_app/components/Upper.dart';
@@ -22,20 +25,22 @@ class _HomePageComponentState extends State<HomePageComponent> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(
-              child: Text('Loading...'),
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           }
 
           final prefs = snapshot.data;
-          // final token = prefs?.getString('token');
-          final name = prefs?.getString('name');
-          final regno = prefs?.getString('regno');
-          final enroll = prefs?.getString('enroll');
-          // final uano = prefs?.getString('uano');
-          // final hfid = prefs?.getString('hfid');
-          final branch = prefs?.getString('branch');
-          final semester = prefs?.getString('semester');
-          // final name = prefs?.getString('name');
+
+          final loginInfoJson = prefs?.getString('login_info') ?? "{}";
+          Map<String, dynamic> loginInfo = jsonDecode(loginInfoJson);
+
+          final regno = loginInfo?["UserInfo"]?["RegNo"] ?? "NA";
+          final enroll = loginInfo?["UserInfo"]?["EnrollmentNo"] ?? "NA";
+          final name = loginInfo?["UserInfo"]?["UserName"] ?? "NA";
+          final branch = loginInfo?["UserInfo"]?["BranchName"] ?? "NA";
+          final semester = loginInfo?["UserInfo"]?["SemesterName"] ?? "NA";
 
           return Scaffold(
             body: SingleChildScrollView(
@@ -44,6 +49,7 @@ class _HomePageComponentState extends State<HomePageComponent> {
                   Upper(
                     title: "Home",
                     back: false,
+                    prefs: prefs,
                   ),
                   SizedBox(
                     width: double.infinity,
