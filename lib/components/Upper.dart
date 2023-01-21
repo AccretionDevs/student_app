@@ -43,10 +43,9 @@ class _UpperState extends State<Upper> {
               },
             )
           : null,
+      centerTitle: true,
       title: Container(
-        margin: ((back == true)
-            ? EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.03)
-            : EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.11)),
+
         child: Text(
           '${title}',
           style: TextStyle(
@@ -54,34 +53,38 @@ class _UpperState extends State<Upper> {
           ),
         ),
       ),
+
       actions: <Widget>[
-        PopupMenuButton<String>(
-          // onSelected: handleClick,
-          itemBuilder: (BuildContext context) {
-            return <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(
-                value: 'Settings',
-                child: ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text("Settings"),
+        Container(
+          margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.035,),
+          child: PopupMenuButton<String>(
+            // onSelected: handleClick,
+            itemBuilder: (BuildContext context) {
+              return <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                  value: 'Settings',
+                  child: ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text("Settings"),
+                  ),
                 ),
-              ),
-              PopupMenuItem<String>(
-                onTap: () => {
-                  // prefs?.setBool('is_logged', false),
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SplashScreen()))
-                },
-                value: 'Logout',
-                child: ListTile(
-                  leading: Icon(Icons.exit_to_app),
-                  title: Text("Logout"),
+                PopupMenuItem<String>(
+                  onTap: () => {
+                    // prefs?.setBool('is_logged', false),
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SplashScreen()))
+                  },
+                  value: 'Logout',
+                  child: ListTile(
+                    leading: Icon(Icons.exit_to_app),
+                    title: Text("Logout"),
+                  ),
                 ),
-              ),
-            ];
-          },
+              ];
+            },
+          ),
         ),
       ],
     );
