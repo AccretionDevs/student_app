@@ -5,8 +5,10 @@ import 'package:student_app/splash.dart';
 class Upper extends StatefulWidget {
   final String title;
   final bool back;
+  final prefs;
 
-  const Upper({super.key, required this.title, required this.back});
+  const Upper(
+      {super.key, required this.title, required this.back, this.prefs = null});
   @override
   State<Upper> createState() => _UpperState();
 }
@@ -14,12 +16,14 @@ class Upper extends StatefulWidget {
 class _UpperState extends State<Upper> {
   String title = "";
   bool back = false;
+  var prefs;
   @override
   void initState() {
     super.initState();
 
     back = widget.back;
     title = widget.title;
+    prefs = widget.prefs;
   }
 
   @override
@@ -56,25 +60,29 @@ class _UpperState extends State<Upper> {
       ),
       actions: <Widget>[
         PopupMenuButton<String>(
-          // onSelected: handleClick,
+          onSelected: (result) {
+            if (result == 'settings') {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("Settings!!!")));
+            } else if (result == 'logout') {
+              prefs?.setBool('is_logged', false);
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SplashScreen()));
+            }
+          },
           itemBuilder: (BuildContext context) {
             return <PopupMenuEntry<String>>[
               PopupMenuItem<String>(
-                value: 'Settings',
+                value: 'settings',
                 child: ListTile(
                   leading: Icon(Icons.settings),
                   title: Text("Settings"),
                 ),
               ),
               PopupMenuItem<String>(
-                onTap: () => {
-                  // prefs?.setBool('is_logged', false),
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SplashScreen()))
-                },
-                value: 'Logout',
+                value: 'logout',
                 child: ListTile(
                   leading: Icon(Icons.exit_to_app),
                   title: Text("Logout"),
