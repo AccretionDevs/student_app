@@ -14,6 +14,7 @@ class _InfoComponentState extends State<InfoComponent> {
   pageChanged(int t) {
     setState(() {
       item = t;
+
     });
   }
 
@@ -21,7 +22,7 @@ class _InfoComponentState extends State<InfoComponent> {
     initialPage: 0,
   );
 
-  String title = "Studnet Inormation";
+  String title = "Studnet Information";
   List<Map<String, dynamic>> res = [
     {
       "title": "Personal",
@@ -73,9 +74,9 @@ class _InfoComponentState extends State<InfoComponent> {
         bottomOpacity: 20,
         foregroundColor: Colors.black54,
         automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Container(
-          margin:
-              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.11),
+
           child: Text(
             '${title}',
             style: TextStyle(
@@ -84,33 +85,36 @@ class _InfoComponentState extends State<InfoComponent> {
           ),
         ),
         actions: <Widget>[
-          PopupMenuButton<String>(
-            // onSelected: handleClick,
-            itemBuilder: (BuildContext context) {
-              return <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
-                  value: 'Settings',
-                  child: ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text("Settings"),
+          Container(
+            margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.035,),
+            child: PopupMenuButton<String>(
+              // onSelected: handleClick,
+              itemBuilder: (BuildContext context) {
+                return <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'Settings',
+                    child: ListTile(
+                      leading: Icon(Icons.settings),
+                      title: Text("Settings"),
+                    ),
                   ),
-                ),
-                PopupMenuItem<String>(
-                  value: 'Logout',
-                  child: ListTile(
-                    leading: Icon(Icons.exit_to_app),
-                    title: Text("Logout"),
+                  PopupMenuItem<String>(
+                    value: 'Logout',
+                    child: ListTile(
+                      leading: Icon(Icons.exit_to_app),
+                      title: Text("Logout"),
+                    ),
                   ),
-                ),
-              ];
-            },
+                ];
+              },
+            ),
           ),
         ],
       ),
       body: Column(
         children: [
           // PageIndicator(currentValue: item,),
-          buildBottomNav(),
+          heading(),
 
           Expanded(
             child: PageView(
@@ -131,7 +135,7 @@ class _InfoComponentState extends State<InfoComponent> {
     );
   }
 
-  Widget buildBottomNav() {
+  Widget heading() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -139,11 +143,11 @@ class _InfoComponentState extends State<InfoComponent> {
         children: List.generate(
             4,
             (index) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.symmetric(horizontal:13 ),
                   child: AnimatedContainer(
                     curve: Curves.easeInCubic,
                     duration: const Duration(milliseconds: 500),
-                    width: 100,
+                    width: 90,
                     height: 20,
                     child: index == 0
                         ? GestureDetector(
@@ -180,7 +184,14 @@ class _InfoComponentState extends State<InfoComponent> {
                                         child: Center(child: Text("Subject")))
                                     : Center(child: Text("")),
                     decoration: BoxDecoration(
-                      color: item == index ? Colors.grey : Colors.white54,
+                      border: Border(
+
+                        bottom:item ==  index ? BorderSide(
+                            width: 3.0,
+                                color: Colors.black54,
+                        ):BorderSide(width: 0,color:Colors.transparent,),
+                      ),
+                      color:  Colors.white54,
                       // borderRadius: BorderRadius.circular(20)
                     ),
                   ),

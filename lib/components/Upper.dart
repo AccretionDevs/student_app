@@ -35,22 +35,21 @@ class _UpperState extends State<Upper> {
       automaticallyImplyLeading: false,
       leading: (back == true)
           ? IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HomePage(
-                            selectedIndex: 1,
-                          )),
-                );
-              },
-            )
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomePage(
+                  selectedIndex: 1,
+                )),
+          );
+        },
+      )
           : null,
+      centerTitle: true,
       title: Container(
-        margin: ((back == true)
-            ? EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.03)
-            : EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.11)),
+
         child: Text(
           '${title}',
           style: TextStyle(
@@ -58,38 +57,42 @@ class _UpperState extends State<Upper> {
           ),
         ),
       ),
+
       actions: <Widget>[
-        PopupMenuButton<String>(
-          onSelected: (result) {
-            if (result == 'settings') {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text("Settings!!!")));
-            } else if (result == 'logout') {
-              prefs?.setBool('is_logged', false);
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SplashScreen()));
-            }
-          },
-          itemBuilder: (BuildContext context) {
-            return <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(
-                value: 'settings',
-                child: ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text("Settings"),
+        Container(
+          margin: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.035,),
+          child: PopupMenuButton<String>(
+            onSelected: (result) {
+              if (result == 'settings') {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text("Settings!!!")));
+              } else if (result == 'logout') {
+                prefs?.setBool('is_logged', false);
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SplashScreen()));
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                  value: 'settings',
+                  child: ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text("Settings"),
+                  ),
                 ),
-              ),
-              PopupMenuItem<String>(
-                value: 'logout',
-                child: ListTile(
-                  leading: Icon(Icons.exit_to_app),
-                  title: Text("Logout"),
+                PopupMenuItem<String>(
+                  value: 'logout',
+                  child: ListTile(
+                    leading: Icon(Icons.exit_to_app),
+                    title: Text("Logout"),
+                  ),
                 ),
-              ),
-            ];
-          },
+              ];
+            },
+          ),
         ),
       ],
     );
