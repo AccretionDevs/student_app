@@ -123,10 +123,12 @@ class _InfoComponentState extends State<InfoComponent> {
                 pageChanged(value);
               },
               children: [
-                for (i = 0; i < 4; i++)
+                for (i = 0; i < 2; i++)
                   ModularResultCard(
                     params: res[i],
                   ),
+                postal(),
+                subject(),
               ],
             ),
           ),
@@ -134,7 +136,35 @@ class _InfoComponentState extends State<InfoComponent> {
       ),
     );
   }
+  //widget for postal details
+  Widget postal(){
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ModularResultCard(
+            params: res[2],
+          ),
+          ModularResultCard(
+            params: res[2],
+          ),
 
+        ],
+      ),
+    );
+  }
+  // widget for subject details
+ Widget subject(){
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          for(int i =0;i<4;i++)
+            ModularResultCard(
+              params: res[i],
+            ),
+        ],
+      ),
+    );
+ }
   Widget heading() {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
