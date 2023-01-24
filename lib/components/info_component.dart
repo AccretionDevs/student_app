@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/components/modular_card.dart';
-
+import 'dart:convert';
+import 'dart:developer';
+import 'package:shared_preferences/shared_preferences.dart';
 class InfoComponent extends StatefulWidget {
   const InfoComponent({Key? key}) : super(key: key);
 
@@ -154,16 +156,54 @@ class _InfoComponentState extends State<InfoComponent> {
   }
   // widget for subject details
  Widget subject(){
+   return FutureBuilder(
+       future: SharedPreferences.getInstance(),
+       builder: (context, snapshot) {
+         if (!snapshot.hasData) {
+           return const Center(
+             child: const Center(
+               child: CircularProgressIndicator(),
+             ),
+           );
+         }
+
+         final prefs = snapshot.data;
+
+         final loginInfoJson = prefs?.getString('login_info') ?? "{}";
+         // final imageInfoJson = prefs?.getString('image_info') ?? "{}";
+         //
+         // Map<String, dynamic> loginInfo = jsonDecode(loginInfoJson);
+         // Map<String, dynamic> imageInfo = jsonDecode(imageInfoJson);
+
+         Map<String, dynamic> json = jsonDecode(loginInfoJson);
+         // print(json['StudentCourse'][0]);
+         // print(json['StudentCourse'].length);
+         List<Map<String, dynamic>> courseList = [];
+
+         int len = json['StudentCourse'].length;
+         for (int i = 0; i < len; i++) {
+           Map<String, dynamic> course = {
+             // "title": "Subject",
+             "items": [
+               // ['CourseNo', json['StudentCourse'][i]['CourseNo']],
+               ['CourseName', json['StudentCourse'][i]['CourseName'].toString()],
+               ['CourseCode', json['StudentCourse'][i]['CourseCode'].toString()],
+               // ['SubId', json['StudentCourse'][i]['SubId']]
+             ],
+           };
+           courseList.add(course);
+         }
     return SingleChildScrollView(
       child: Column(
         children: [
           for(int i =0;i<4;i++)
             ModularResultCard(
-              params: res[i],
+              params: courseList[i],
             ),
         ],
       ),
     );
+       });
  }
   Widget heading() {
     return SingleChildScrollView(
