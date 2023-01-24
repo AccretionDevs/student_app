@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_app/components/modular_card.dart';
 import 'dart:convert';
-import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InfoComponent extends StatefulWidget {
@@ -25,48 +24,6 @@ class _InfoComponentState extends State<InfoComponent> {
   );
 
   String title = "Student Information";
-  List<Map<String, dynamic>> res = [
-    {
-      "title": "Personal",
-      "items": [
-        ["NAME", "YASIR"],
-        ["ADRESS", "KASHMIR"],
-        ["ENROLLMENT", "50"],
-        ["DEGREE", "B-TECH"]
-      ],
-      // "callback": true
-    },
-    {
-      "title": "Contact",
-      "items": [
-        ["NAME", "YASIR"],
-        ["ADRESS", "KASHMIR"],
-        ["ENROLLMENT", "50"],
-        ["DEGREE", "B-TECH"]
-      ],
-      // "callback": true
-    },
-    {
-      "title": "Postal",
-      "items": [
-        ["NAME", "YASIR"],
-        ["ADRESS", "KASHMIR"],
-        ["ENROLLMENT", "50"],
-        ["DEGREE", "B-TECH"]
-      ],
-      // "callback": true
-    },
-    {
-      "title": "Subject",
-      "items": [
-        ["NAME", "YASIR"],
-        ["ADRESS", "KASHMIR"],
-        ["ENROLLMENT", "50"],
-        ["DEGREE", "B-TECH"]
-      ],
-      // "callback": true
-    }
-  ];
 
   @override
   Widget build(BuildContext context) {
