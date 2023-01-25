@@ -35,16 +35,18 @@ class _FeesPaidState extends State<FeesPaid> {
           int len = json['FeesDetails'].length;
 
           for (int i = 0; i < len; i++) {
-
             List<dynamic> fee_details_list = [];
 
             int sem_len = json['FeesDetails']?[i]?['DetailList']?.length ?? 0;
             print(sem_len);
-            for(int j = 0; j < sem_len; j++){
+            for (int j = 0; j < sem_len; j++) {
               // print(json['FeesDetails']?[i]?['DetailList'][j]?['Key']?.toString() ?? "-");
               fee_details_list.add([
-                json['FeesDetails']?[i]?['DetailList'][j]?['Key']?.toString() ?? "-",
-                json['FeesDetails']?[i]?['DetailList'][j]?['Value']?.toString() ?? "-"
+                json['FeesDetails']?[i]?['DetailList'][j]?['Key']?.toString() ??
+                    "-",
+                json['FeesDetails']?[i]?['DetailList'][j]?['Value']
+                        ?.toString() ??
+                    "-"
               ]);
             }
             Map<String, dynamic> fee_map = {
@@ -56,7 +58,7 @@ class _FeesPaidState extends State<FeesPaid> {
           // print(fee_list);
           return Scaffold(
             appBar: AppBar(
-              flexibleSpace:  Upper(
+              flexibleSpace: Upper(
                 title: "Fees Paid",
                 back: false,
               ),
@@ -64,10 +66,8 @@ class _FeesPaidState extends State<FeesPaid> {
             body: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-
                   for (int i = 0; i < len; i++)
                     ModularResultCard(params: fee_list[i])
-
                 ],
               ),
             ),

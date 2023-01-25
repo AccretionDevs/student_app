@@ -104,51 +104,42 @@ class _ResultComponentState extends State<ResultComponent> {
 
   @override
   Widget build(BuildContext context) {
-    return showResult? Container(
-      child: Scaffold(
-        appBar: AppBar(
-      flexibleSpace:  Upper(
-      title: '${res[sem]["title"]}',
-        back: true,
-      )
-      ),
-        body: SingleChildScrollView(
-          child:
-               Column(
-               children: <Widget>[
-
-                 for (int itemx = 0; itemx < inter[sem].length; itemx++)
-                   ModularResultCard(params: inter[sem][itemx])
-               ],
-                )
-             ,
-        ),
-      ),
-    ):
-    Scaffold(
-      appBar: AppBar(
-          flexibleSpace:  Upper(
-            title: 'Result',
-            back: false,
+    return showResult
+        ? Container(
+            child: Scaffold(
+              appBar: AppBar(
+                  flexibleSpace: Upper(
+                title: '${res[sem]["title"]}',
+                back: true,
+              )),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    for (int itemx = 0; itemx < inter[sem].length; itemx++)
+                      ModularResultCard(params: inter[sem][itemx])
+                  ],
+                ),
+              ),
+            ),
           )
-      ),
-
-      body: SingleChildScrollView(
-        child:
-        Column(
-        children: [
-
-          for (int item = 0; item < res.length; item++)
-          ModularResultCard(
-          params: res[item],
-          parentOnPressed: () {
-    pressedSem(item);
-    })
-    ],
-    ),
-      )
-
-    );
+        : Scaffold(
+            appBar: AppBar(
+                flexibleSpace: Upper(
+              title: 'Result',
+              back: false,
+            )),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  for (int item = 0; item < res.length; item++)
+                    ModularResultCard(
+                        params: res[item],
+                        parentOnPressed: () {
+                          pressedSem(item);
+                        })
+                ],
+              ),
+            ));
   }
 
   void pressedSem(int ind) {

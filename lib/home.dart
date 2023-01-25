@@ -4,7 +4,6 @@ import 'package:student_app/components/footer.dart';
 import 'package:student_app/components/result_component.dart';
 import 'package:student_app/components/info_component.dart';
 import 'package:student_app/components/fees_paid.dart';
-
 import 'functions/fetch.dart';
 
 class HomePage extends StatefulWidget {
