@@ -18,15 +18,17 @@ class _InfoComponentState extends State<InfoComponent> {
   pageChanged(int t) {
     setState(() {
       item = t;
-      control_heading.animateTo(  (item*10).toDouble() , duration: Duration(milliseconds: 500), curve: Curves.easeInCubic,);
+      control_heading.animateTo(
+        (item * 10).toDouble(),
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInCubic,
+      );
     });
   }
 
   PageController _controller = PageController(
     initialPage: 0,
   );
-
-
 
   String title = "Student Information";
 
@@ -76,10 +78,11 @@ class _InfoComponentState extends State<InfoComponent> {
 
           return Scaffold(
             appBar: AppBar(
-                flexibleSpace:  Upper(
-                  title: "Student Information",
-                  back: false,
-            ),),
+              flexibleSpace: Upper(
+                title: "Student Information",
+                back: false,
+              ),
+            ),
             body: Column(
               children: [
                 // PageIndicator(currentValue: item,),
@@ -99,7 +102,7 @@ class _InfoComponentState extends State<InfoComponent> {
                           params: personal_details,
                         ),
                       ),
-                      
+
                       SingleChildScrollView(
                         child: ModularResultCard(
                           params: contact_info,
@@ -156,8 +159,7 @@ class _InfoComponentState extends State<InfoComponent> {
                 json['PostalInfo']?[i]?['Key']?.toString() ?? "-",
                 json['PostalInfo']?[i]?['Value']?.toString() ?? "-"
               ]);
-            }
-            else if (json['PostalInfo']?[i]?['Type'] == '5') {
+            } else if (json['PostalInfo']?[i]?['Type'] == '5') {
               postal_list_guard.add([
                 json['PostalInfo']?[i]?['Key']?.toString() ?? "-",
                 json['PostalInfo']?[i]?['Value']?.toString() ?? "-"
@@ -246,14 +248,13 @@ class _InfoComponentState extends State<InfoComponent> {
 
   Widget heading() {
     return SingleChildScrollView(
-      padding: EdgeInsets.only(top: 20,bottom: 20),
+      padding: EdgeInsets.only(top: 20, bottom: 20),
       scrollDirection: Axis.horizontal,
       controller: control_heading,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
             4,
-
             (index) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 13),
                   child: AnimatedContainer(
@@ -268,8 +269,14 @@ class _InfoComponentState extends State<InfoComponent> {
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.easeIn);
                             },
-                            child: Center(child: Text("Personal",
-                              style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
+                            child: Center(
+                                child: Text(
+                              "Personal",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w500),
+                            )))
                         : index == 1
                             ? GestureDetector(
                                 onTap: () {
@@ -277,8 +284,14 @@ class _InfoComponentState extends State<InfoComponent> {
                                       duration: Duration(milliseconds: 500),
                                       curve: Curves.easeIn);
                                 },
-                                child: Center(child: Text("Contact",
-                                  style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
+                                child: Center(
+                                    child: Text(
+                                  "Contact",
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.w500),
+                                )))
                             : index == 2
                                 ? GestureDetector(
                                     onTap: () {
@@ -286,8 +299,14 @@ class _InfoComponentState extends State<InfoComponent> {
                                           duration: Duration(milliseconds: 500),
                                           curve: Curves.easeIn);
                                     },
-                                    child: Center(child: Text("Postal",
-                                      style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
+                                    child: Center(
+                                        child: Text(
+                                      "Postal",
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.black87,
+                                          fontWeight: FontWeight.w500),
+                                    )))
                                 : index == 3
                                     ? GestureDetector(
                                         onTap: () {
@@ -296,8 +315,14 @@ class _InfoComponentState extends State<InfoComponent> {
                                                   Duration(milliseconds: 500),
                                               curve: Curves.easeIn);
                                         },
-                                        child: Center(child: Text("Subject",
-                                          style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
+                                        child: Center(
+                                            child: Text(
+                                          "Subject",
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              color: Colors.black87,
+                                              fontWeight: FontWeight.w500),
+                                        )))
                                     : Center(child: Text("")),
                     decoration: BoxDecoration(
                       border: Border(
