@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_app/components/modular_card.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:student_app/splash.dart';
 
 class InfoComponent extends StatefulWidget {
   const InfoComponent({Key? key}) : super(key: key);
@@ -92,6 +92,24 @@ class _InfoComponentState extends State<InfoComponent> {
                   ),
                   child: PopupMenuButton<String>(
                     // onSelected: handleClick,
+                    onSelected: (result) {
+                      // print("${result}");
+                      // print(result == 'Settings');
+                      if (result == 'Settings') {
+                        // print("inside settigns");
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text("Settings!!!")));
+                      } else if (result == 'Logout') {
+
+                        prefs?.setBool('is_logged', false);
+
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SplashScreen()));
+                      }
+                    },
 
                     itemBuilder: (BuildContext context) {
                       return <PopupMenuEntry<String>>[
@@ -309,7 +327,7 @@ class _InfoComponentState extends State<InfoComponent> {
                                       duration: Duration(milliseconds: 500),
                                       curve: Curves.easeIn);
                                 },
-                                child: Center(child: Text("Conatct")))
+                                child: Center(child: Text("Contact")))
                             : index == 2
                                 ? GestureDetector(
                                     onTap: () {
