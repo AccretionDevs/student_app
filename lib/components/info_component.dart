@@ -66,7 +66,7 @@ class _InfoComponentState extends State<InfoComponent> {
             ]);
           }
           Map<String, dynamic> contact_info = {
-            "title": "Contact",
+            "title": "Contact Details",
             "items": contact_list,
           };
 
@@ -300,6 +300,7 @@ class _InfoComponentState extends State<InfoComponent> {
 
   Widget heading() {
     return SingleChildScrollView(
+      padding: EdgeInsets.only(top: 20,bottom: 20),
       scrollDirection: Axis.horizontal,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -310,8 +311,8 @@ class _InfoComponentState extends State<InfoComponent> {
                   child: AnimatedContainer(
                     curve: Curves.easeInCubic,
                     duration: const Duration(milliseconds: 500),
-                    width: 90,
-                    height: 20,
+                    width: 80,
+                    height: 25,
                     child: index == 0
                         ? GestureDetector(
                             onTap: () {
@@ -319,7 +320,8 @@ class _InfoComponentState extends State<InfoComponent> {
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.easeIn);
                             },
-                            child: Center(child: Text("Personal")))
+                            child: Center(child: Text("Personal",
+                              style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
                         : index == 1
                             ? GestureDetector(
                                 onTap: () {
@@ -327,7 +329,8 @@ class _InfoComponentState extends State<InfoComponent> {
                                       duration: Duration(milliseconds: 500),
                                       curve: Curves.easeIn);
                                 },
-                                child: Center(child: Text("Contact")))
+                                child: Center(child: Text("Contact",
+                                  style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
                             : index == 2
                                 ? GestureDetector(
                                     onTap: () {
@@ -335,7 +338,8 @@ class _InfoComponentState extends State<InfoComponent> {
                                           duration: Duration(milliseconds: 500),
                                           curve: Curves.easeIn);
                                     },
-                                    child: Center(child: Text("Postal")))
+                                    child: Center(child: Text("Postal",
+                                      style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
                                 : index == 3
                                     ? GestureDetector(
                                         onTap: () {
@@ -344,7 +348,8 @@ class _InfoComponentState extends State<InfoComponent> {
                                                   Duration(milliseconds: 500),
                                               curve: Curves.easeIn);
                                         },
-                                        child: Center(child: Text("Subject")))
+                                        child: Center(child: Text("Subject",
+                                          style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
                                     : Center(child: Text("")),
                     decoration: BoxDecoration(
                       border: Border(
