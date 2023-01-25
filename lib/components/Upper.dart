@@ -67,7 +67,9 @@ class _UpperState extends State<Upper> {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text("Settings!!!")));
               } else if (result == 'logout') {
-                prefs?.setBool('is_logged', false);
+
+                  prefs?.setBool('is_logged', false);
+
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(

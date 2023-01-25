@@ -3,6 +3,7 @@ import 'package:student_app/components/modular_card.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 class InfoComponent extends StatefulWidget {
   const InfoComponent({Key? key}) : super(key: key);
 
@@ -91,6 +92,7 @@ class _InfoComponentState extends State<InfoComponent> {
                   ),
                   child: PopupMenuButton<String>(
                     // onSelected: handleClick,
+
                     itemBuilder: (BuildContext context) {
                       return <PopupMenuEntry<String>>[
                         PopupMenuItem<String>(
@@ -101,6 +103,7 @@ class _InfoComponentState extends State<InfoComponent> {
                           ),
                         ),
                         PopupMenuItem<String>(
+
                           value: 'Logout',
                           child: ListTile(
                             leading: Icon(Icons.exit_to_app),
@@ -127,11 +130,16 @@ class _InfoComponentState extends State<InfoComponent> {
                     children: [
                       //personal and contact
                       // for (i = 0; i < 2; i++)
-                      ModularResultCard(
-                        params: personal_details,
+                      SingleChildScrollView(
+                        child: ModularResultCard(
+                          params: personal_details,
+                        ),
                       ),
-                      ModularResultCard(
-                        params: contact_info,
+                      
+                      SingleChildScrollView(
+                        child: ModularResultCard(
+                          params: contact_info,
+                        ),
                       ),
                       postal(),
                       subject(),
