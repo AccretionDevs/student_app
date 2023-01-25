@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_app/components/modular_card.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:student_app/splash.dart';
+import 'package:student_app/components/Upper.dart';
 
 class InfoComponent extends StatefulWidget {
   const InfoComponent({Key? key}) : super(key: key);
@@ -14,15 +14,19 @@ class InfoComponent extends StatefulWidget {
 class _InfoComponentState extends State<InfoComponent> {
   int item = 0;
   int i = 0;
+  ScrollController control_heading = ScrollController();
   pageChanged(int t) {
     setState(() {
       item = t;
+      control_heading.animateTo(  (item*10).toDouble() , duration: Duration(milliseconds: 500), curve: Curves.easeInCubic,);
     });
   }
 
   PageController _controller = PageController(
     initialPage: 0,
   );
+
+
 
   String title = "Student Information";
 
@@ -72,68 +76,10 @@ class _InfoComponentState extends State<InfoComponent> {
 
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
-              bottomOpacity: 20,
-              foregroundColor: Colors.black54,
-              automaticallyImplyLeading: false,
-              centerTitle: true,
-              title: Container(
-                child: Text(
-                  '${title}',
-                  style: TextStyle(
-                    color: Colors.black54,
-                  ),
-                ),
-              ),
-              actions: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.width * 0.035,
-                  ),
-                  child: PopupMenuButton<String>(
-                    // onSelected: handleClick,
-                    onSelected: (result) {
-                      // print("${result}");
-                      // print(result == 'Settings');
-                      if (result == 'Settings') {
-                        // print("inside settigns");
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(SnackBar(content: Text("Settings!!!")));
-                      } else if (result == 'Logout') {
-
-                        prefs?.setBool('is_logged', false);
-
-
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SplashScreen()));
-                      }
-                    },
-
-                    itemBuilder: (BuildContext context) {
-                      return <PopupMenuEntry<String>>[
-                        PopupMenuItem<String>(
-                          value: 'Settings',
-                          child: ListTile(
-                            leading: Icon(Icons.settings),
-                            title: Text("Settings"),
-                          ),
-                        ),
-                        PopupMenuItem<String>(
-
-                          value: 'Logout',
-                          child: ListTile(
-                            leading: Icon(Icons.exit_to_app),
-                            title: Text("Logout"),
-                          ),
-                        ),
-                      ];
-                    },
-                  ),
-                ),
-              ],
-            ),
+                flexibleSpace:  Upper(
+                  title: "Student Information",
+                  back: false,
+            ),),
             body: Column(
               children: [
                 // PageIndicator(currentValue: item,),
@@ -302,10 +248,12 @@ class _InfoComponentState extends State<InfoComponent> {
     return SingleChildScrollView(
       padding: EdgeInsets.only(top: 20,bottom: 20),
       scrollDirection: Axis.horizontal,
+      controller: control_heading,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
             4,
+
             (index) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 13),
                   child: AnimatedContainer(

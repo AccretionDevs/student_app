@@ -51,14 +51,15 @@ class _HomePageComponentState extends State<HomePageComponent> {
           // log("fees_info" + (prefs?.getString('fees_info') ?? "NA"));
 
           return Scaffold(
+            appBar: AppBar(
+          flexibleSpace:  Upper(
+          title: "Home",
+            back: false,
+          ),
+          ),
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  Upper(
-                    title: "Home",
-                    back: false,
-                    prefs: prefs,
-                  ),
                   SizedBox(
                     width: double.infinity,
                     child: Column(

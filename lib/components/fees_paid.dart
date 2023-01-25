@@ -54,16 +54,20 @@ class _FeesPaidState extends State<FeesPaid> {
             print(fee_list);
           }
           // print(fee_list);
-          return SingleChildScrollView(
-            child: Container(
+          return Scaffold(
+            appBar: AppBar(
+              flexibleSpace:  Upper(
+                title: "Fees Paid",
+                back: false,
+              ),
+            ),
+            body: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Upper(
-                    title: "Fees Paid",
-                    back: false,
-                  ),
+
                   for (int i = 0; i < len; i++)
                     ModularResultCard(params: fee_list[i])
+
                 ],
               ),
             ),
