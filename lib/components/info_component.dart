@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:student_app/components/modular_card.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:student_app/splash.dart';
 
 class InfoComponent extends StatefulWidget {
   const InfoComponent({Key? key}) : super(key: key);
@@ -65,7 +66,7 @@ class _InfoComponentState extends State<InfoComponent> {
             ]);
           }
           Map<String, dynamic> contact_info = {
-            "title": "Contact",
+            "title": "Contact Details",
             "items": contact_list,
           };
 
@@ -91,6 +92,25 @@ class _InfoComponentState extends State<InfoComponent> {
                   ),
                   child: PopupMenuButton<String>(
                     // onSelected: handleClick,
+                    onSelected: (result) {
+                      // print("${result}");
+                      // print(result == 'Settings');
+                      if (result == 'Settings') {
+                        // print("inside settigns");
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text("Settings!!!")));
+                      } else if (result == 'Logout') {
+
+                        prefs?.setBool('is_logged', false);
+
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SplashScreen()));
+                      }
+                    },
+
                     itemBuilder: (BuildContext context) {
                       return <PopupMenuEntry<String>>[
                         PopupMenuItem<String>(
@@ -101,6 +121,7 @@ class _InfoComponentState extends State<InfoComponent> {
                           ),
                         ),
                         PopupMenuItem<String>(
+
                           value: 'Logout',
                           child: ListTile(
                             leading: Icon(Icons.exit_to_app),
@@ -127,11 +148,16 @@ class _InfoComponentState extends State<InfoComponent> {
                     children: [
                       //personal and contact
                       // for (i = 0; i < 2; i++)
-                      ModularResultCard(
-                        params: personal_details,
+                      SingleChildScrollView(
+                        child: ModularResultCard(
+                          params: personal_details,
+                        ),
                       ),
-                      ModularResultCard(
-                        params: contact_info,
+                      
+                      SingleChildScrollView(
+                        child: ModularResultCard(
+                          params: contact_info,
+                        ),
                       ),
                       postal(),
                       subject(),
@@ -274,6 +300,7 @@ class _InfoComponentState extends State<InfoComponent> {
 
   Widget heading() {
     return SingleChildScrollView(
+      padding: EdgeInsets.only(top: 20,bottom: 20),
       scrollDirection: Axis.horizontal,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -284,8 +311,8 @@ class _InfoComponentState extends State<InfoComponent> {
                   child: AnimatedContainer(
                     curve: Curves.easeInCubic,
                     duration: const Duration(milliseconds: 500),
-                    width: 90,
-                    height: 20,
+                    width: 80,
+                    height: 25,
                     child: index == 0
                         ? GestureDetector(
                             onTap: () {
@@ -293,7 +320,8 @@ class _InfoComponentState extends State<InfoComponent> {
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.easeIn);
                             },
-                            child: Center(child: Text("Personal")))
+                            child: Center(child: Text("Personal",
+                              style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
                         : index == 1
                             ? GestureDetector(
                                 onTap: () {
@@ -301,7 +329,8 @@ class _InfoComponentState extends State<InfoComponent> {
                                       duration: Duration(milliseconds: 500),
                                       curve: Curves.easeIn);
                                 },
-                                child: Center(child: Text("Conatct")))
+                                child: Center(child: Text("Contact",
+                                  style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
                             : index == 2
                                 ? GestureDetector(
                                     onTap: () {
@@ -309,7 +338,8 @@ class _InfoComponentState extends State<InfoComponent> {
                                           duration: Duration(milliseconds: 500),
                                           curve: Curves.easeIn);
                                     },
-                                    child: Center(child: Text("Postal")))
+                                    child: Center(child: Text("Postal",
+                                      style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
                                 : index == 3
                                     ? GestureDetector(
                                         onTap: () {
@@ -318,7 +348,8 @@ class _InfoComponentState extends State<InfoComponent> {
                                                   Duration(milliseconds: 500),
                                               curve: Curves.easeIn);
                                         },
-                                        child: Center(child: Text("Subject")))
+                                        child: Center(child: Text("Subject",
+                                          style: TextStyle(fontSize: 17,color: Colors.black87,fontWeight: FontWeight.w500),)))
                                     : Center(child: Text("")),
                     decoration: BoxDecoration(
                       border: Border(
