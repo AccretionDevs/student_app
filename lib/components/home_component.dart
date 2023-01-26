@@ -47,8 +47,8 @@ class _HomePageComponentState extends State<HomePageComponent> {
           // print("login_info" + (prefs?.getString('login_info') ?? "NA"));
           // print("image_info" + (prefs?.getString('image_info') ?? "NA"));
           // print("student_info" + (prefs?.getString('student_info') ?? "NA"));
-          print("res_int" + (prefs?.getString('res_int') ?? "NA"));
-          print("res_ext" + (prefs?.getString('res_ext') ?? "NA"));
+          // print("res_int" + (prefs?.getString('res_int') ?? "NA"));
+          // print("res_ext" + (prefs?.getString('res_ext') ?? "NA"));
           // print("fees_info" + (prefs?.getString('fees_info') ?? "NA"));
 
           return Scaffold(
