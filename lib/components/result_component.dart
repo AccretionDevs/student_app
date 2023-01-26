@@ -16,29 +16,6 @@ class ResultComponent extends StatefulWidget {
 class _ResultComponentState extends State<ResultComponent> {
   bool showResult = false;
   int sem = -1;
-
-  List<Map<String, dynamic>> res = [
-    {
-      "title": "Autumn 2022",
-      "items": [
-        ["Semester", "1"],
-        ["CGPA", "8.92"],
-        ["SGPA", "3"],
-        ["CGPA", "8.92"]
-      ],
-      "callback": true
-    },
-    {
-      "title": "Summer 2023",
-      "items": [
-        ["Semester", "2"],
-        ["CGPA", "8.92"],
-        ["SGPA", "3"],
-        ["CGPA", "8.92"]
-      ],
-      "callback": true
-    }
-  ];
   List<List<Map<String, dynamic>>> inter = [
     [
       {
@@ -55,48 +32,6 @@ class _ResultComponentState extends State<ResultComponent> {
         "title": "Operating Systems",
         "items": [
           ["Semester", "1"],
-          ["Grade", "B+"],
-          ["Credits", "4"],
-          ["Internal", "15"]
-        ]
-      }
-    ],
-    [
-      {
-        "title": "database management systems",
-        "items": [
-          ["Semester", "2"],
-          ["Grade", "A"],
-          ["Credits", "3"],
-          ["Internal", "20"]
-        ],
-        // "callback": true
-      },
-      {
-        "title": "Operating Systems",
-        "items": [
-          ["Semester", "2"],
-          ["Grade", "B+"],
-          ["Credits", "4"],
-          ["Internal", "15"]
-        ]
-      }
-    ],
-    [
-      {
-        "title": "database management systems",
-        "items": [
-          ["Semester", "3"],
-          ["Grade", "A"],
-          ["Credits", "3"],
-          ["Internal", "20"]
-        ],
-        // "callback": true
-      },
-      {
-        "title": "Operating Systems",
-        "items": [
-          ["Semester", "3"],
           ["Grade", "B+"],
           ["Credits", "4"],
           ["Internal", "15"]
