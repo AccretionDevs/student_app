@@ -111,6 +111,9 @@ class _ResultComponentState extends State<ResultComponent> {
                   flexibleSpace: Upper(
                 title: '${res[sem]["title"]}',
                 back: true,
+                    popback:(){
+                  pressedSem(-1);
+                    },
               )),
               body: SingleChildScrollView(
                 child: Column(
@@ -142,10 +145,10 @@ class _ResultComponentState extends State<ResultComponent> {
             ));
   }
 
-  void pressedSem(int ind) {
+   pressedSem(int ind) {
     log('Pressed inside result component: $ind');
     setState(() {
-      showResult = true;
+      showResult = !showResult;
 
       sem = ind;
     });
