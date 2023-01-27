@@ -82,7 +82,7 @@ class _ModularResultCardState extends State<ModularResultCard> {
   }
 
   void onPressed() {
-    print("Pressed");
+    // print("Pressed");
     if (hasCallback) {
       parentOnPressed!();
     }

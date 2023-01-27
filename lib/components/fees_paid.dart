@@ -53,7 +53,7 @@ class _FeesPaidState extends State<FeesPaid> {
               "items": fee_details_list,
             };
             fee_list.add(fee_map);
-            print(fee_list);
+            // print(fee_list);
           }
           // print(fee_list);
           return Scaffold(
