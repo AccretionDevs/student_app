@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_app/components/Upper.dart';
-import '../splash.dart';
 
 void main() {
   runApp(const HomePageComponent());
@@ -147,19 +146,6 @@ class _HomePageComponentState extends State<HomePageComponent> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.01),
                             Text(CGPA, style: TextStyle(fontSize: 18.0)),
-                            // SizedBox(
-                            //     height:
-                            //         MediaQuery.of(context).size.height * 0.0),
-                            // ElevatedButton(
-                            //     onPressed: () => {
-                            //           prefs?.setBool('is_logged', false),
-                            //           Navigator.pushReplacement(
-                            //               context,
-                            //               MaterialPageRoute(
-                            //                   builder: (context) =>
-                            //                       const SplashScreen()))
-                            //         },
-                            //     child: const Text("Logout"))
                           ],
                         ),
                       ),
