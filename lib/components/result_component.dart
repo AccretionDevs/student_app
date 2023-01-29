@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:student_app/components/modular_card.dart';
-import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:student_app/components/Upper.dart';
 
@@ -16,30 +14,6 @@ class ResultComponent extends StatefulWidget {
 class _ResultComponentState extends State<ResultComponent> {
   bool showResult = false;
   int sem = -1;
-  List<List<Map<String, dynamic>>> inter = [
-    [
-      {
-        "title": "database management systems",
-        "items": [
-          ["Semester", "1"],
-          ["Grade", "A"],
-          ["Credits", "3"],
-          ["Internal", "20"]
-        ],
-        // "callback": true
-      },
-      {
-        "title": "Operating Systems",
-        "items": [
-          ["Semester", "1"],
-          ["Grade", "B+"],
-          ["Credits", "4"],
-          ["Internal", "15"]
-        ]
-      }
-    ],
-  ];
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -54,12 +28,18 @@ class _ResultComponentState extends State<ResultComponent> {
           }
 
           final prefs = snapshot.data;
+          final loginInfoJson = prefs?.getString('login_info') ?? "{}";
           final resInfoJsonExtern = prefs?.getString('res_ext') ?? "{}";
           final resInfoJsonIntern = prefs?.getString('res_int') ?? "{}";
-
           List<dynamic> json_external = jsonDecode(resInfoJsonExtern);
+          // json_external.removeLast()
           List<dynamic> json_internal = jsonDecode(resInfoJsonIntern);
+          Map<String, dynamic> loginInfo = jsonDecode(loginInfoJson);
 
+          List<String> sessionNames = [];
+          for(int i = 0; i < loginInfo['InternalSession']?.length; i++){
+            sessionNames.add(loginInfo['InternalSession']?[i]?['SessionName']??"");
+          }
           int len_extern = json_external.length;
           Map<String, List<String>> external_marks = {};
           List<dynamic> result_list = [];
@@ -67,7 +47,7 @@ class _ResultComponentState extends State<ResultComponent> {
           for (int i = 0; i < len_extern; i++) {
             int pr_ind = json_external[i]['Result'].length - 1 ?? 0;
             Map<String, dynamic> result_map = {
-              "title": "Autumn 2022",
+              "title": sessionNames[i],
               "items": [
                 ["Semester", (i + 1).toString()],
                 ["SGPA", json_external[i]?['Result']?[0]?['Value']?.toString() ?? "-"],
@@ -89,7 +69,7 @@ class _ResultComponentState extends State<ResultComponent> {
           for(int i = temp;  i < remaining_sem + temp; i++){
             int pr_ind = json_external[i]?['Result']?.length - 1 ?? 0;
             Map<String, dynamic> result_map = {
-              "title": "Autumn 2022",
+              "title": sessionNames[i],
               "items": [
                 ["Semester", (i + 1).toString()],
                 ["SGPA", json_external[i]?['Result']?[0]?['Value']?.toString() ?? "-"],
@@ -176,10 +156,8 @@ class _ResultComponentState extends State<ResultComponent> {
   }
 
    pressedSem(int ind) {
-    log('Pressed inside result component: $ind');
     setState(() {
       showResult = !showResult;
-
       sem = ind;
     });
   }

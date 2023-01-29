@@ -3,8 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 Future<void> fetchData() async {
-  // await Future.delayed(const Duration(milliseconds: 1000));
-
   final prefs = await SharedPreferences.getInstance();
 
   final token = prefs.getString('token') ?? "NA";
