@@ -41,7 +41,7 @@ class _FooterState extends State<Footer> {
             label: 'FeesPaid',
           ),
         ],
-        iconSize: 35,
+        iconSize: 30,
         currentIndex: selectedIndex,
         onTap: (int i) => {
               setState(() {

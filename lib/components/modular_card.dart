@@ -36,10 +36,10 @@ class _ModularResultCardState extends State<ModularResultCard> {
         child: SizedBox(
           width: double.infinity,
           child: Card(
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4.0),
+            margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
             child: Padding(
               padding: const EdgeInsets.only(
-                  top: 20, bottom: 20, left: 20, right: 20),
+                  top: 10, bottom: 10, left: 10, right: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -51,9 +51,9 @@ class _ModularResultCardState extends State<ModularResultCard> {
                               Text(
                                 params['title'].toUpperCase(),
                                 style: const TextStyle(
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   fontFamily: 'Quicksand',
-                                  fontWeight: FontWeight.w500,
+                                  // fontWeight: FontWeight.w600,
                                 ),
                               ),
                               SizedBox(
@@ -68,8 +68,8 @@ class _ModularResultCardState extends State<ModularResultCard> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(param[0] + ":", style: TextStyle(fontSize: 12.0)),
-                        Text(param[1], style: const TextStyle(fontSize: 18.0)),
+                        Text(param[0] + ":", style: TextStyle(fontSize: 11.0)),
+                        Text(param[1], style: const TextStyle(fontSize: 16.0)),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02),
                       ],
