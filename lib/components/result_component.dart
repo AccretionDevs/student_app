@@ -61,9 +61,9 @@ class _ResultComponentState extends State<ResultComponent> {
           List<dynamic> json_internal = jsonDecode(resInfoJsonIntern);
 
           int len_extern = json_external.length ?? 0;
-          int len_intern = json_internal.length ?? 0;
-
+          Map<String, List<String>> external_marks = {};
           List<dynamic> result_list = [];
+          int temp = 0;
           for (int i = 0; i < len_extern; i++) {
             int pr_ind = json_external[i]['Result'].length - 1 ?? 0;
             Map<String, dynamic> result_map = {
@@ -80,30 +80,58 @@ class _ResultComponentState extends State<ResultComponent> {
               "callback": true
             };
             result_list.add(result_map);
+            for(int j = 0; j < json_external[i]['ExternalMarks'].length; j++){
+              external_marks[json_external[i]['ExternalMarks'][j]['CourseName'].toString()??"-"] = [(json_external[i]['ExternalMarks'][j]['Grade'].toString() ?? "-"), (json_external[i]['ExternalMarks'][j]['Credits'].toString() ?? "-")];
+            }
+            temp = i;
           }
-          // print(json_internal[0]['InternalMarks'][0]['S1Obt']);
+          int remaining_sem =json_internal.length - len_extern;
+          for(int i = temp;  i < remaining_sem + temp; i++){
+            int pr_ind = json_external[i]?['Result']?.length - 1 ?? 0;
+            Map<String, dynamic> result_map = {
+              "title": "Autumn 2022",
+              "items": [
+                ["Semester", (i + 1).toString()],
+                ["SGPA", json_external[i]?['Result']?[0]?['Value']?.toString() ?? "-"],
+                ["CGPA", json_external[i]?['Result']?[1]?['Value']?.toString() ?? "-"],
+                ["Provisional Result", json_external[i]?['Result']?[pr_ind]?['Value']?.toString() ?? "-"],
+              ],
+              "callback": true
+            };
+            result_list.add(result_map);
+            for(int j = 0; j < json_external[i]?['ExternalMarks'].length; j++){
+              external_marks[json_external[i]?['ExternalMarks']?[j]?['CourseName']?.toString()??"-"] = [(json_external[i]?['ExternalMarks']?[j]?['Grade']?.toString() ?? "-"), (json_external[i]?['ExternalMarks']?[j]?['Credits']?.toString() ?? "-")];
+            }
+          }
 
           List<List<Map<String, dynamic>>> internal_list = [];
 
-          for (int i = 0; i < len_extern; i++) {
+          for (int i = 0; i < json_internal.length ; i++) {
             int subjects = json_internal[i]['InternalMarks'].length ?? 0;
             List<Map<String, dynamic>> result_list_temp = [];
+
             for(int j = 0; j < subjects; j++){
+              bool isLab = json_internal[i]['InternalMarks'][j]['S1Max'].toString() == '0';
+
               Map<String, dynamic> result_map = {
                 "title": json_internal[i]['InternalMarks'][j]['CourseName'],
                 "items": [
                   ["Semester", (i + 1).toString()],
-                  ["Grade", json_external[i]['ExternalMarks'][j]['Grade'].toString() ?? "-"],  // check is possible
-                  ["Internal", json_internal[i]['InternalMarks'][j]['S1Obt'].toString() ?? "-"],
-                  ["Mid Term", json_internal[i]['InternalMarks'][j]['S2Obt'].toString() ?? "-"],
-                  ["Credits", json_external[i]['ExternalMarks'][j]['Credits'].toString() ?? "-"],
                 ],
               };
+              if(!isLab){
+                result_map["items"].add(["Internal", "${json_internal[i]?['InternalMarks']?[j]?['S1Obt']?.toString() ?? "-"} / ${json_internal[i]['InternalMarks'][j]['S1Max'].toString()}"]);
+                result_map["items"].add(["Mid Term", "${json_internal[i]?['InternalMarks']?[j]?['S2Obt']?.toString() ?? "-"} / ${json_internal[i]['InternalMarks'][j]['S2Max'].toString()}"]);
+              }
+              else{
+                result_map["items"].add(["Internal", "${json_internal[i]?['InternalMarks']?[j]?['S3Obt']?.toString() ?? "-"} / ${json_internal[i]['InternalMarks'][j]['S3Max'].toString()}"]);
+              }
+              result_map["items"].add(["Grade", external_marks[(json_internal[i]?['InternalMarks']?[j]?['CourseName'])?.toString()]?[0]?.toString() ?? "-"]);
+              result_map["items"].add(["Credits", external_marks[(json_internal[i]?['InternalMarks']?[j]?['CourseName'])?.toString()]?[1]?.toString() ?? "-"]);
               result_list_temp.add(result_map);
             }
             internal_list.add(result_list_temp);
           }
-          print(internal_list[4]);
 
     return showResult
         ? Container(
