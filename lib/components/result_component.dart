@@ -32,7 +32,6 @@ class _ResultComponentState extends State<ResultComponent> {
           final resInfoJsonExtern = prefs?.getString('res_ext') ?? "{}";
           final resInfoJsonIntern = prefs?.getString('res_int') ?? "{}";
           List<dynamic> json_external = jsonDecode(resInfoJsonExtern);
-          // json_external.removeLast()
           List<dynamic> json_internal = jsonDecode(resInfoJsonIntern);
           Map<String, dynamic> loginInfo = jsonDecode(loginInfoJson);
 
@@ -66,21 +65,20 @@ class _ResultComponentState extends State<ResultComponent> {
             temp = i;
           }
           int remaining_sem =json_internal.length - len_extern;
-          for(int i = temp;  i < remaining_sem + temp; i++){
-            int pr_ind = json_external[i]?['Result']?.length - 1 ?? 0;
+          for(int i = temp + 1;  i <= remaining_sem + temp; i++){
             Map<String, dynamic> result_map = {
               "title": sessionNames[i],
               "items": [
                 ["Semester", (i + 1).toString()],
-                ["SGPA", json_external[i]?['Result']?[0]?['Value']?.toString() ?? "-"],
-                ["CGPA", json_external[i]?['Result']?[1]?['Value']?.toString() ?? "-"],
-                ["Provisional Result", json_external[i]?['Result']?[pr_ind]?['Value']?.toString() ?? "-"],
+                ["SGPA", "-"],
+                ["CGPA", "-"],
               ],
               "callback": true
             };
             result_list.add(result_map);
-            for(int j = 0; j < json_external[i]?['ExternalMarks'].length; j++){
-              external_marks[json_external[i]?['ExternalMarks']?[j]?['CourseName']?.toString()??"-"] = [(json_external[i]?['ExternalMarks']?[j]?['Grade']?.toString() ?? "-"), (json_external[i]?['ExternalMarks']?[j]?['Credits']?.toString() ?? "-")];
+            for(int j = 0;  (json_external.length > i) && j < (json_external[i]?['ExternalMarks']?.length ?? 0); j++){
+              dynamic index = json_external[i]?['ExternalMarks']?[j] ?? null;
+              external_marks[index['CourseName']?.toString()??"-"] = [(index['Grade']?.toString() ?? "-"), (index['Credits']?.toString() ?? "-")];
             }
           }
 

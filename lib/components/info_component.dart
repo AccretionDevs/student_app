@@ -317,7 +317,7 @@ class _InfoComponentState extends State<InfoComponent> {
                                         },
                                         child: Center(
                                             child: Text(
-                                          "Subject",
+                                          "Subjects",
                                           style: TextStyle(
                                               fontSize: 17,
                                               color: Colors.black87,
