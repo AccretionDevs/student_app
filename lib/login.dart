@@ -46,25 +46,6 @@ class _MyLoginState extends State<MyLogin> {
                           Container(
                             margin: EdgeInsets.only(
                                 top: MediaQuery.of(context).size.height * 0.1),
-                            // decoration: const BoxDecoration(
-                            //   image: DecorationImage(
-                            //       image: AssetImage('assets/images/logo.png'),
-                            //       alignment: Alignment.topCenter,
-                            //       scale: 7),
-                            // ),
-                            // padding: EdgeInsets.all(20),
-                            // decoration: BoxDecoration(
-                            // border: Border.all(width: 5, color: Colors.blue),
-                            // alignment: Alignment.topCenter,
-                            // scale: 7,
-                            // ),
-                            // child: Transform.scale(
-                            //   scale: 0.2,
-                            //   child: Image(
-                            //     image: AssetImage("assets/images/logo.png"),
-                            //     fit: BoxFit.contain,
-                            //   ),
-                            // ),
                             child: SizedBox(
                               width: 200,
                               height: 200,
@@ -73,10 +54,6 @@ class _MyLoginState extends State<MyLogin> {
                                 alignment: Alignment.topCenter,
                               ),
                             ),
-                            // child: Image(
-                            //   image: AssetImage('assets/images/logo.png'),
-                            //   alignment: Alignment.topCenter,
-                            // ),
                           ),
                           Container(
                               // backgroundColor: Colors.transparent,
