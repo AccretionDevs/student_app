@@ -20,7 +20,7 @@ class _InfoComponentState extends State<InfoComponent> {
       item = t;
       control_heading.animateTo(
         (item * 10).toDouble(),
-        duration: Duration(milliseconds: 500),
+        duration: Duration(milliseconds: 150),
         curve: Curves.easeInCubic,
       );
     });
@@ -95,8 +95,6 @@ class _InfoComponentState extends State<InfoComponent> {
                       pageChanged(value);
                     },
                     children: [
-                      //personal and contact
-                      // for (i = 0; i < 2; i++)
                       SingleChildScrollView(
                         child: ModularResultCard(
                           params: personal_details,
@@ -135,10 +133,6 @@ class _InfoComponentState extends State<InfoComponent> {
           final prefs = snapshot.data;
 
           final StudentInfoJson = prefs?.getString('student_info') ?? "{}";
-          // final imageInfoJson = prefs?.getString('image_info') ?? "{}";
-          //
-          // Map<String, dynamic> loginInfo = jsonDecode(loginInfoJson);
-          // Map<String, dynamic> imageInfo = jsonDecode(imageInfoJson);
 
           Map<String, dynamic> json = jsonDecode(StudentInfoJson);
 
@@ -259,14 +253,14 @@ class _InfoComponentState extends State<InfoComponent> {
                   padding: const EdgeInsets.symmetric(horizontal: 13),
                   child: AnimatedContainer(
                     curve: Curves.easeInCubic,
-                    duration: const Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 150),
                     width: 80,
                     height: 25,
                     child: index == 0
                         ? GestureDetector(
                             onTap: () {
                               _controller.animateToPage(0,
-                                  duration: Duration(milliseconds: 500),
+                                  duration: Duration(milliseconds: 150),
                                   curve: Curves.easeIn);
                             },
                             child: Center(
@@ -281,7 +275,7 @@ class _InfoComponentState extends State<InfoComponent> {
                             ? GestureDetector(
                                 onTap: () {
                                   _controller.animateToPage(1,
-                                      duration: Duration(milliseconds: 500),
+                                      duration: Duration(milliseconds: 150),
                                       curve: Curves.easeIn);
                                 },
                                 child: Center(
@@ -296,7 +290,7 @@ class _InfoComponentState extends State<InfoComponent> {
                                 ? GestureDetector(
                                     onTap: () {
                                       _controller.animateToPage(2,
-                                          duration: Duration(milliseconds: 500),
+                                          duration: Duration(milliseconds: 150),
                                           curve: Curves.easeIn);
                                     },
                                     child: Center(
@@ -312,7 +306,7 @@ class _InfoComponentState extends State<InfoComponent> {
                                         onTap: () {
                                           _controller.animateToPage(3,
                                               duration:
-                                                  Duration(milliseconds: 500),
+                                                  Duration(milliseconds: 150),
                                               curve: Curves.easeIn);
                                         },
                                         child: Center(
