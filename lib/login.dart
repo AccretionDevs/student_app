@@ -40,22 +40,51 @@ class _MyLoginState extends State<MyLogin> {
               return Scaffold(
                   appBar: null,
                   body: Container(
-                    margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.1),
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/logo.png'),
-                          alignment: Alignment.topCenter,
-                          scale: 7),
-                    ),
-                    child: Scaffold(
-                        backgroundColor: Colors.transparent,
-                        body: Stack(children: [
-                          SingleChildScrollView(
-                            child: Container(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.1),
+                            // decoration: const BoxDecoration(
+                            //   image: DecorationImage(
+                            //       image: AssetImage('assets/images/logo.png'),
+                            //       alignment: Alignment.topCenter,
+                            //       scale: 7),
+                            // ),
+                            // padding: EdgeInsets.all(20),
+                            // decoration: BoxDecoration(
+                            // border: Border.all(width: 5, color: Colors.blue),
+                            // alignment: Alignment.topCenter,
+                            // scale: 7,
+                            // ),
+                            // child: Transform.scale(
+                            //   scale: 0.2,
+                            //   child: Image(
+                            //     image: AssetImage("assets/images/logo.png"),
+                            //     fit: BoxFit.contain,
+                            //   ),
+                            // ),
+                            child: SizedBox(
+                              width: 200,
+                              height: 200,
+                              child: Image(
+                                image: AssetImage("assets/images/logo.png"),
+                                alignment: Alignment.topCenter,
+                              ),
+                            ),
+                            // child: Image(
+                            //   image: AssetImage('assets/images/logo.png'),
+                            //   alignment: Alignment.topCenter,
+                            // ),
+                          ),
+                          Container(
+                              // backgroundColor: Colors.transparent,
+                              child: Stack(children: [
+                            Container(
                               padding: EdgeInsets.only(
                                   top:
-                                      MediaQuery.of(context).size.height * 0.35,
+                                      MediaQuery.of(context).size.height * 0.08,
                                   right: 35,
                                   left: 35),
                               child: Column(
@@ -110,6 +139,10 @@ class _MyLoginState extends State<MyLogin> {
                                     ),
                                     const Text('Remember Password')
                                   ]),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.03,
+                                  ),
                                   Container(
                                     // width: MediaQuery.of(context).size.width,
                                     margin: const EdgeInsets.only(top: 15),
@@ -183,8 +216,10 @@ class _MyLoginState extends State<MyLogin> {
                                 ],
                               ),
                             ),
-                          )
-                        ])),
+                          ])),
+                        ],
+                      ),
+                    ),
                   ));
             }),
       ),
