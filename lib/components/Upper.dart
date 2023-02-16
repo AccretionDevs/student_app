@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:student_app/components/about_us.dart';
 import 'package:student_app/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 class Upper extends StatefulWidget {
   final String title;
   final bool back;
@@ -78,8 +78,12 @@ class _UpperState extends State<Upper> {
                 child: PopupMenuButton<String>(
                   onSelected: (result) {
                     if (result == 'settings') {
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(SnackBar(content: Text("Settings!!!")));
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AboutUs(title: "About Us", back: true)));
+                      // ScaffoldMessenger.of(context)
+                      //     .showSnackBar(SnackBar(content: Text("Settings!!!")));
                     } else if (result == 'logout') {
                       prefs?.setBool('is_logged', false);
 
@@ -94,8 +98,8 @@ class _UpperState extends State<Upper> {
                       PopupMenuItem<String>(
                         value: 'settings',
                         child: ListTile(
-                          leading: Icon(Icons.settings),
-                          title: Text("Settings"),
+                          leading: Icon(Icons.info),
+                          title: Text("About Us"),
                         ),
                       ),
                       PopupMenuItem<String>(
