@@ -153,19 +153,36 @@ class _MyLoginState extends State<MyLogin> {
                                                           isLogging = true;
                                                         });
                                                         try {
-                                                          await doLogin(
-                                                              registrationNumber,
-                                                              password,
-                                                              rememberPassword);
-                                                          if (mounted) {
-                                                            Navigator
-                                                                .pushReplacement(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) =>
-                                                                            const HomePage(
-                                                                              selectedIndex: 0,
-                                                                            )));
+                                                          if (registrationNumber
+                                                              .isEmpty) {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                                    SnackBar(
+                                                                        content:
+                                                                            Text("Please Enter Username")));
+                                                          } else if (password
+                                                              .isEmpty) {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                                    SnackBar(
+                                                                        content:
+                                                                            Text("Please Enter Password")));
+                                                          } else {
+                                                            await doLogin(
+                                                                registrationNumber,
+                                                                password,
+                                                                rememberPassword);
+                                                            if (mounted) {
+                                                              Navigator.pushReplacement(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) => const HomePage(
+                                                                            selectedIndex:
+                                                                                0,
+                                                                          )));
+                                                            }
                                                           }
                                                         } catch (error) {
                                                           ScaffoldMessenger.of(
