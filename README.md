@@ -1,8 +1,8 @@
 # student_app
 
 
-# Install on Iphone
-- Install Flutter on your Mac
+# Installation on Iphone.
+- Install Flutter on your Mac.
 - On your iPhone, enable developer options (settings -> privacy & security).
 - Clone the repository and open it in terminal.
 ```
@@ -13,9 +13,15 @@ flutter build ios
 - Double-click Runner.xcworkspace to launch it in Xcode.
 - In Xcode, select the runner on the top left.
 - Sign in and add an account to the team (using your Apple ID).
-- Connect and unlock your iPhone
-- Select your iPhone from the above bar
-- Click the play button
+- Connect and unlock your iPhone.
+- Select your iPhone from the above bar.
+- Click the play button.
 - settings -> VPN & Device Management -> Trust developer
 - open termainal at the repo and type  `flutter run --release`
 
+# Installation on Android 
+- Download the apk and install it.
+- You may get some warnings as we don't have developers account right now, so ignore them.
+
+# Request
+- We don't have any developer account that is why we are unable to make it availabe it on app store and play store. So, if you have a developer account kindly contact us at accretiondevs@gmail.com
