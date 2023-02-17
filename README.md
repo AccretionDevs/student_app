@@ -24,4 +24,4 @@ flutter build ios
 - You may get some warnings as we don't have developers account right now, so ignore them.
 
 # Request
-- We don't have any developer account that is why we are unable to make it availabe it on app store and play store. So, if you have a developer account kindly contact us at accretiondevs@gmail.com
+- We don't have any developer account that is why we are unable to make it available it on app store and play store. So, if you have a developer account kindly contact us at accretiondevs@gmail.com
