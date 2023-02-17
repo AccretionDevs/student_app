@@ -20,7 +20,7 @@ flutter build ios
 - open termainal at the repo and type  `flutter run --release`
 
 # Installation on Android 
-- Download the apk and install it.
+- Download the apk and install it (https://github.com/AccretionDevs/student_app/releases/download/v1.0.1/student_app.apk). 
 - You may get some warnings as we don't have developers account right now, so ignore them.
 
 # Request
