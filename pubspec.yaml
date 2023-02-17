@@ -44,6 +44,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: "^0.11.0"
+  flutter_app_name: ^0.1.1
 flutter_icons:
   android: "launcher_icon"
   ios: true
@@ -67,6 +68,9 @@ flutter_icons:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
+flutter_app_name:
+  name: "Student App"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
