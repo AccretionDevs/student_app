@@ -3,7 +3,7 @@
     <!-- Required to fetch data from the internet. -->
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="student_app"
+        android:label="Student App"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
