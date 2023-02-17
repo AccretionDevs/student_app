@@ -1,7 +1,7 @@
 # Student App
 
 
-# Installation on iPhone.
+# Installation on IOS
 - Install Flutter on your Mac.
 - On your iPhone, enable Developer Options (Settings -> Privacy & Security).
 - Clone the repository and open it in terminal.
@@ -21,7 +21,7 @@ flutter build ios
 
 # Installation on Android 
 - Download the apk and install it (https://github.com/AccretionDevs/student_app/releases/download/v1.0.1/student_app.apk). 
-- You may get some warnings as we don't have developers account right now, so ignore them.
+- You may get some warnings as we don't have a developer account right now, so ignore them.
 
 # Request
-- We don't have any developer account that is why we are unable to make it available it on App Store and Play Store. So, if you have a developer account kindly contact us at accretiondevs@gmail.com
+- We don't have any developer accounts, which is why we are unable to make it available on the App Store and Play Store. So, if you have a developer account, kindly contact us at accretiondevs@gmail.com
