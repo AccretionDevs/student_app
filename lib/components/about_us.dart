@@ -31,6 +31,7 @@ class _AboutUsState extends State<AboutUs> {
     List<dynamic>details_list = [];
     details_list.add(["Email","accretiondevs@gmail.com"]);
     details_list.add(["Github", "github.com/AccretionDevs"]);
+    details_list.add(["Developers", "Usaid Aijaz (CSE'20)\nJameel Kaisar (IT'20)\nYasir Mohi-ud-din (IT'20)"]);
     Map<String, dynamic> details_map = {
       "items": details_list,
     };
