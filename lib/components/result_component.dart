@@ -33,8 +33,10 @@ class _ResultComponentState extends State<ResultComponent> {
           final resInfoJsonIntern = prefs?.getString('res_int') ?? "{}";
           List<dynamic> json_external = jsonDecode(resInfoJsonExtern);
           List<dynamic> json_internal = jsonDecode(resInfoJsonIntern);
-          Map<String, dynamic> loginInfo = jsonDecode(loginInfoJson);
 
+
+          Map<String, dynamic> loginInfo = jsonDecode(loginInfoJson);
+          print(loginInfo['InternalSession'][0]["SemesterNo"]);
           List<String> sessionNames = [];
           for(int i = 0; i < loginInfo['InternalSession']?.length; i++){
             sessionNames.add(loginInfo['InternalSession']?[i]?['SessionName']??"");
@@ -48,7 +50,7 @@ class _ResultComponentState extends State<ResultComponent> {
             Map<String, dynamic> result_map = {
               "title": sessionNames[i],
               "items": [
-                ["Semester", (i + 1).toString()],
+                ["Semester", loginInfo['InternalSession'][i]["SemesterNo"].toString()],
                 ["SGPA", json_external[i]?['Result']?[0]?['Value']?.toString() ?? "-"],
                 if(i != 0)
                   ["CGPA", json_external[i]?['Result']?[1]?['Value']?.toString() ?? "-"],
@@ -69,7 +71,7 @@ class _ResultComponentState extends State<ResultComponent> {
             Map<String, dynamic> result_map = {
               "title": sessionNames[i],
               "items": [
-                ["Semester", (i + 1).toString()],
+                ["Semester", loginInfo['InternalSession'][i]["SemesterNo"].toString()],
                 ["SGPA", "-"],
                 ["CGPA", "-"],
               ],
@@ -83,7 +85,6 @@ class _ResultComponentState extends State<ResultComponent> {
           }
 
           List<List<Map<String, dynamic>>> internal_list = [];
-
           for (int i = 0; i < json_internal.length ; i++) {
             int subjects = json_internal[i]['InternalMarks'].length ?? 0;
             List<Map<String, dynamic>> result_list_temp = [];
@@ -94,7 +95,7 @@ class _ResultComponentState extends State<ResultComponent> {
               Map<String, dynamic> result_map = {
                 "title": json_internal[i]['InternalMarks'][j]['CourseName'],
                 "items": [
-                  ["Semester", (i + 1).toString()],
+                  ["Semester", loginInfo['InternalSession'][i]["SemesterNo"].toString()],
                 ],
               };
               if(!isLab){
